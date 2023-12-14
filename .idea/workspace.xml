@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b8036ef1-9b2b-4b17-8fb4-d9a39234fa40" name="Changes" comment="" />
+    <list default="true" id="b8036ef1-9b2b-4b17-8fb4-d9a39234fa40" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gym/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Gym/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gym/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gym/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gym/src/Users/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gym/src/Users/Person.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,6 +15,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
   <component name="ProjectId" id="2ZYIL0A5J9aFmXtR77FyeQDXMhd" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -17,8 +25,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/salah/OneDrive/Desktop/Gym new",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
