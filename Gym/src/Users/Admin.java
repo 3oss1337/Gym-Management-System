@@ -4,8 +4,30 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Admin {
+public class Admin extends Person {
 
+    public Admin(){
+
+    }
+    @Override
+    public void displayInfo() {
+
+    }
+
+    @Override
+    public void login() {
+
+    }
+
+    @Override
+    public void mainMenu() {
+
+    }
+
+    @Override
+    public void register() {
+
+    }
 
     public static class CoachSortByNumOfMembers implements Comparator<Coach> {
         @Override

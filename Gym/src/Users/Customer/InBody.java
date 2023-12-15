@@ -71,7 +71,7 @@ public class InBody {
     public void setProtein(double protein) {
         this.protein = protein;
     }
-    public void knowNeeded(Customer customer) {        // A function to know if someone looking to lose weight, gain muscle, or improve their overall body
+    public void knowNeeded(Customer customer) { // A function to know if someone looking to lose weight, gain muscle, or improve their overall body
         double BMI;
         double fatNeeded = 0;
         double carbNeeded = 0;

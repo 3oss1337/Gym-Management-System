@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import static GymDetails.Gym.listOfCoaches;
 import static GymDetails.Gym.sportEquipment;
@@ -16,7 +17,6 @@ public class Customer extends Person {
     private int id;
     public InBody inBody;
     public static List<Subscription> subscriptions;
-
     public static Subscription subscription;
     private List<InBody> inBodies;
     LocalDate lastInBodyDate;
@@ -34,15 +34,27 @@ public class Customer extends Person {
         subscription=sub;
         subscriptions = new ArrayList<>();
         this.inBodies = new ArrayList<>();
-
-
-
-
     }
 
+    public List<InBody> getInBodies() {
+        return inBodies;
+    }
+    public void setInBodies(List<InBody> inBodies) {
+        this.inBodies = inBodies;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public Customer(String name) {
         super(name);
     }
+    public LocalDate getLastInBodyDate() {
+        return lastInBodyDate;
+    }
+
 
     public void performInBody(InBody inBody) {
         if (inBody.canPerformInBody(this)) {
@@ -53,10 +65,31 @@ public class Customer extends Person {
             System.out.println("Sorry, you can perform an InBody analysis only once every 30 days.");
         }
     }
+    public void displayAssignedCoachInfo(){
+        for(Coach coach : listOfCoaches){
+            if(Customer.subscription.getCoachId()==coach.id)
+            {
+                System.out.println(coach.id);
 
-    public LocalDate getLastInBodyDate() {
-        return lastInBodyDate;
+            }
+        }
     }
+    public void displayGymEquipment(){
+
+        for(Equipment equipment : sportEquipment)
+        {
+            equipment.displayDetails();
+
+        }
+    }
+    public void displayMemberShipDetails()
+    {
+        Customer.subscription.getMembership().display();
+    }
+    public void chooseYourDreamBody(){
+        inBody.knowNeeded(this);
+    }
+
     @Override
     public void displayInfo() {
         System.out.println("Name:"+ this.name);
@@ -73,61 +106,46 @@ public class Customer extends Person {
 
     @Override
     public void mainMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Hello " + getName() + '\n');
 
+        System.out.println("1. To get your coach info\n" +
+                "2. Display for all the Gym Equipment\n" +
+                "3. Display my membership’s plan details\n" +
+                "4. Display the in-body information at a specific date\n" +
+                "5. Display how many kilos I need to reduce according to my inBody");
+
+        System.out.println("Choose your choice");
+        int choice = scanner.nextInt();
+
+
+        switch (choice) {
+            case 1:
+                displayAssignedCoachInfo();
+                break;
+            case 2:
+                displayGymEquipment();
+                break;
+            case 3:
+                displayMemberShipDetails();
+                break;
+            case 4:
+                //TODO make a method that searches inBody history list by date
+                //int date = scanner.nextInt();
+                //inBody.getInBodyDetails(date);
+                break;
+            case 5:
+                chooseYourDreamBody();
+                break;
+            default:
+                System.out.println("please enter a valid choice");
+        }
     }
 
     @Override
     public void register() {
 
     }
-
-    public List<InBody> getInBodies() {
-        return inBodies;
-    }
-
-    public void setInBodies(List<InBody> inBodies) {
-        this.inBodies = inBodies;
-    }
-
-
-
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void displayAssignedCoachInfo(){
-        for(Coach coach : listOfCoaches){
-            if(Customer.subscription.getCoachId()==coach.id)
-            {
-                System.out.println(coach.id);
-
-            }
-        }
-
-
-    }
-
-    public void displayGymEquipment(){
-
-        for(Equipment equipment : sportEquipment)
-        {
-            equipment.displayDetails();
-
-        }
-    }
-
-    public void displayMemberShipDetails()
-    {
-
-        Customer.subscription.getMembership().display();
-    }
-
     @Override
     public String toString() {
         return "Customer{" +
@@ -141,7 +159,6 @@ public class Customer extends Person {
                 '}';
     }
 
-    //TODO display the inbody information at a specific date
-    //TODO Display for the user how many kilos need to be reduced
+    //TODO display the in body information at a specific date
 
 }

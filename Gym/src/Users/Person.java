@@ -1,5 +1,5 @@
 package Users;
-
+import java.util.Scanner;
 public abstract class Person {
 
     protected  String name;
@@ -81,6 +81,42 @@ public abstract class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+    public static String check_password(){
+        System.out.print("Password : (At Least 8 Digit!!)");
+        Scanner scanner = new Scanner(System.in);
+        String PASS=scanner.next();
+        while(true){
+            boolean containsOnlyLetters = PASS.matches("[a-zA-Z]+");
+            boolean containsOnlyNumbers = PASS.matches("\\d+");
+            if(PASS.length()>=8){
+                if(!containsOnlyLetters&&!containsOnlyNumbers){
+                    System.out.println(" ENTER CONFIRM PASSWORD");
+                }
+                else{
+                    System.out.println("YOUR PASSWORD IS WEAK ENTER ANOTHER ONE");
+                    PASS=scanner.next();
+                    continue;
+                }
+                String confirm_pass = scanner.next();
+                if(PASS.equals(confirm_pass)){
+                    //correct password
+                    System.out.println("gada3 y hmada");
+                    return PASS;
+
+                }
+                else{
+                    System.out.println("NOT MATCHING WITH PASSORD");
+                    continue;
+                }
+            }
+            else{
+                System.out.println("YOU MUST ENTER AT LEAST 8 DIGITS");
+                PASS=scanner.next();
+                continue;
+            }
+
+        }
     }
 
     public abstract void displayInfo();
