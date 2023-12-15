@@ -2,6 +2,7 @@ package Users;
 
 import GymDetails.Gym;
 import Users.Customer.Customer;
+import Users.Customer.InBody;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,32 +95,21 @@ public class Coach extends Person {
             }
         }
     }
-
-    @Override
-    public void login() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your UserName:");
-        String userName = scanner.nextLine();
-        System.out.println("Enter your password:");
-        String password = scanner.nextLine();
-
-        do {
-            boolean flag = false;
-            for (int i = 2; i < Gym.listOfCoaches.size(); i += 2) {
-                if (Gym.listOfCoaches.contains(userName) && Gym.listOfCoaches.get(i + 1).equals(password)) {
-                    System.out.println("hello " + userName);
-                    flag = true;
-                    break;
-                } else {
-                    flag = false;
-                }
-            }
-            if (flag)
-                break;
-            else
-                System.out.println("Username or password is wrong ❌");
-        } while (true);
+    public void callInBodyHistory(Customer customer){
+        System.out.println("(Trainee's inbody history)");
+        for(InBody InBodies: customer.getInBodies()){
+            System.out.println("Date : "+InBodies.getDateOfInBody());
+            System.out.println("Height : "+Math.round(InBodies.getHeight()*10.0)/10.0); //rounded the value to one decimal place
+            System.out.println("Weight : "+InBodies.getWeight());
+            System.out.println("Body fat mass : "+InBodies.getBodyFatMass());
+            System.out.println("Body water : "+InBodies.getBodyWater());
+            System.out.println("The protein needed : "+InBodies.getProteinNeeded());
+            System.out.println("The carb needed : "+InBodies.getCarbNeeded());
+            System.out.println("The fat needed : "+InBodies.getFatNeeded());
+            System.out.print("\n");
+        }
     }
+
 
     @Override
     public void mainMenu() {
@@ -158,6 +148,31 @@ public class Coach extends Person {
     }
 
     @Override
+    public void login() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter your UserName:");
+        String userName = scanner.nextLine();
+        System.out.println("Enter your password:");
+        String password = scanner.nextLine();
+
+        do {
+            boolean flag = false;
+            for (int i = 2; i < Gym.listOfCoaches.size(); i += 2) {
+                if (Gym.listOfCoaches.contains(userName) && Gym.listOfCoaches.get(i + 1).equals(password)) {
+                    System.out.println("hello " + userName);
+                    flag = true;
+                    break;
+                } else {
+                    flag = false;
+                }
+            }
+            if (flag)
+                break;
+            else
+                System.out.println("Username or password is wrong ❌");
+        } while (true);
+    }
+    @Override
     public void displayInfo() {
         System.out.println("Name:" + this.name);
         System.out.println("Phone number:" + this.phoneNumber);
@@ -166,7 +181,6 @@ public class Coach extends Person {
 
     }
 
-    //TODO INBODY HISTORY
     @Override
     public void register() {
     }

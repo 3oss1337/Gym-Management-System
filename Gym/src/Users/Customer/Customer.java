@@ -18,7 +18,7 @@ public class Customer extends Person {
     public InBody inBody;
     public static List<Subscription> subscriptions;
     public static Subscription subscription;
-    private List<InBody> inBodies;
+    private static List<InBody> inBodies;
     LocalDate lastInBodyDate;
     public static int customerId = 0;
 
@@ -33,7 +33,7 @@ public class Customer extends Person {
         this.id=customerId;
         subscription=sub;
         subscriptions = new ArrayList<>();
-        this.inBodies = new ArrayList<>();
+        inBodies = new ArrayList<>();
     }
 
     public List<InBody> getInBodies() {
@@ -55,7 +55,9 @@ public class Customer extends Person {
         return lastInBodyDate;
     }
 
-
+    public void addToInBodyHistory(InBody Inbody){
+        inBodies.add(Inbody);
+    }
     public void performInBody(InBody inBody) {
         if (inBody.canPerformInBody(this)) {
             inBodies.add(inBody);

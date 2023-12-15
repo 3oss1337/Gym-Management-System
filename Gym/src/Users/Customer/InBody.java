@@ -15,8 +15,24 @@ public class InBody {
     protected double bodyFatMass;       //in kg
     protected double bodyWater;    //in kg
     protected double protein; //in kg
+    protected double fatNeeded;
 
-    public InBody(double height, double weight, double bodyFatMass, double bodyWater, LocalDate dateOfInBody) {
+    public double getFatNeeded() {
+        return fatNeeded;
+    }
+
+    public double getCarbNeeded() {
+        return carbNeeded;
+    }
+
+    public double getProteinNeeded() {
+        return proteinNeeded;
+    }
+
+    protected double carbNeeded;
+    protected double proteinNeeded;
+    public InBody(String desire,double height, double weight, double bodyFatMass, double bodyWater, LocalDate dateOfInBody) {
+        this.desire=desire;
         this.dateOfInBody = dateOfInBody;
         this.height = height;
         this.weight = weight;
@@ -93,23 +109,31 @@ public class InBody {
         if (desire.equals("GAIN_MUSCLE")) {
             proteinNeeded = 2.25 * weight;     // in grams
             fatNeeded = weight;               // in grams
-            carbNeeded = 1.7 * weight;      // in grams
+            carbNeeded = 1.7 * weight;       // in grams
             System.out.println("you’re underweight. You may not have the same health risks as people living with obesity, but being underweight could be putting you in other risk categories.");
         } else if (desire.equals("LOSS_WEIGHT")) {
             proteinNeeded = weight;           // in grams
-            fatNeeded = 0.8 * weight;               // in grams
-            carbNeeded = weight;      // in grams
+            fatNeeded = 0.8 * weight;        // in grams
+            carbNeeded = weight;            // in grams
             System.out.println("Your weight is above the 'normal range'. You may be interested in different ways to lose weight");
         } else if (desire.equals("NORMAL_BODY")) {
             proteinNeeded = 1.5 * weight;     // in grams
-            fatNeeded = weight;               // in grams
-            carbNeeded = 1.3 * weight;
+            fatNeeded = weight;              // in grams
+            carbNeeded = 1.3 * weight;      // in grams
             System.out.println("You're within the ”normal BMI range”. Keeping your weight within this range lowers your risk of getting obesity-related deceases.");
         }
 
         System.out.println("You need to eat meals that contain" + proteinNeeded + "gram protein per day");
         System.out.println("You need to eat meals that contain " + fatNeeded + " gram fats per day");
         System.out.println("You need to eat meals that contain " + carbNeeded + " gram carb per day");
+
+        //setters for the values
+        this.proteinNeeded = proteinNeeded;
+        this.fatNeeded = fatNeeded;
+        this.carbNeeded = carbNeeded;
+
+        //to display the actual value when needed
+        height = height * 100;
 
     }
 
