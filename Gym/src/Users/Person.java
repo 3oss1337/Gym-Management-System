@@ -2,13 +2,13 @@ package Users;
 
 public abstract class Person {
 
-    protected static String name;
-    protected String password;
-    public String gender;
-    protected String address;
+    protected  String name;
+    protected  String password;
+    public  String gender;
+    protected  String address;
     protected String phoneNumber;
-    public String email;
-    public int age;
+    public  String email;
+    public  int age;
 
     public Person() {
     }
@@ -87,4 +87,5 @@ public abstract class Person {
 
     public abstract void login();
     public abstract void mainMenu();
+    public abstract void register();
 }
