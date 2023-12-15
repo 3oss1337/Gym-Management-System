@@ -1,17 +1,17 @@
 package Users.Customer;
 
 import GymDetails.Equipment;
+import GymDetails.Gym;
 import Users.Coach;
 import Users.Person;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import static GymDetails.Gym.listOfCoaches;
-import static GymDetails.Gym.sportEquipment;
+import static GymDetails.Gym.listOfEquipments;
 
 public class Customer extends Person {
     private int id;
@@ -76,7 +76,7 @@ public class Customer extends Person {
     }
     public void displayGymEquipment(){
 
-        for(Equipment equipment : sportEquipment)
+        for(Equipment equipment : listOfEquipments)
         {
             equipment.displayDetails();
 
@@ -101,7 +101,28 @@ public class Customer extends Person {
 
     @Override
     public void login() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter your UserName:");
+        String userName = scanner.nextLine();
+        System.out.println("Enter your password:");
+        String password = scanner.nextLine();
 
+        do {
+            boolean flag = false;
+            for (int i = 2; i < Gym.listOfCustomers.size(); i += 2) {
+                if (Gym.listOfCustomers.contains(userName) && Gym.listOfCustomers.get(i + 1).equals(password)) {
+                    System.out.println("hello " + userName);
+                    flag = true;
+                    break;
+                } else {
+                    flag = false;
+                }
+            }
+            if (flag)
+                break;
+            else
+                System.out.println("Username or password is wrong ❌");
+        } while (true);
     }
 
     @Override

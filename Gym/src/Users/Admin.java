@@ -3,6 +3,7 @@ package Users;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 public class Admin extends Person {
 
@@ -16,13 +17,37 @@ public class Admin extends Person {
 
     @Override
     public void login() {
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter your UserName:");
+            String userName = scanner.nextLine();
+            System.out.println("Enter your password:");
+            String password = scanner.nextLine();
 
+            if (userName.equals("admin") && password.equals("admin"))
+                break;
+            else
+                System.out.println("Username or password is wrong ❌");
+        }while (true);
     }
 
     @Override
     public void mainMenu() {
 
     }
+
+    private static int typesAdminCanEdit() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1. Coaches\n" +
+                "2. System users\n" +
+                "3. Equipments");
+
+        System.out.println("Choose your choice");
+        int choice = scanner.nextInt();
+
+        return choice;
+    }
+
 
     @Override
     public void register() {
