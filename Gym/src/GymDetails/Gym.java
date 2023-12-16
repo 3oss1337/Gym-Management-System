@@ -6,6 +6,7 @@ import Users.Customer.Customer;
 import Users.Customer.Subscription;
 import Users.SystemUser;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -102,5 +103,24 @@ public class Gym {
                 System.out.println("please enter a valid choice");
         }
     }
+
+    public static void saveObject(Object obj, String filePath) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath,true))) {
+            oos.writeObject(obj);
+            System.out.println("Object saved to " + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Object loadObject(String filePath) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            return ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 }

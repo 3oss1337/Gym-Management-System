@@ -48,12 +48,7 @@ public class Coach extends Person {
         return workingHours;
     }
 
-    public void setWorkingHours(int workingHours) {
-        if (workingHours > 10) {
-            System.out.println("Invalid working hours amount");
-        } else
-            this.workingHours = workingHours;
-    }
+
 
     public void displayAllCustomers() {
         for (Customer customer : customers) {
@@ -187,11 +182,13 @@ public class Coach extends Person {
         String phoneNum = scanner.nextLine();
         System.out.println("Enter your Age");
         int age = scanner.nextInt();
-        System.out.println("Enter working hours");
-        int wHours = scanner.nextInt();
-        System.out.println("Coach added successfully✅");
-
+        int wHours;
+        do {
+            System.out.println("Enter working hours");
+            wHours = scanner.nextInt();
+        }while (wHours > 10);
         Person person = new Coach(name, password, email, gender, address, phoneNum, age, wHours);
+                System.out.println("Coach created successfully!");
         return person;
     }
 
