@@ -1,11 +1,13 @@
 package GymDetails;
 
+import Users.Admin;
 import Users.Coach;
 import Users.Customer.Customer;
 import Users.Customer.Subscription;
 import Users.SystemUser;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Gym {
     public String Name;
@@ -66,6 +68,39 @@ public class Gym {
 
     public void removeSubscription(Subscription subscription) {
         listOfSubscriptions.remove(subscription);
+    }
+
+    public static void mainMenu (){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1. Log in as ADMIN\n" + "2. Log in as COACH\n" + "3. Log in as TRAINEE\n" + "4. Log in as receptionist");
+
+        System.out.println("Choose your choice");
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                Admin admin = new Admin();
+                admin.login();
+                admin.menu();
+                break;
+            case 2:
+                Coach coach = new Coach();
+                coach.login();
+                coach.menu();
+                break;
+            case 3:
+                Customer customer = new Customer();
+                customer.login();
+                customer.menu();
+                break;
+            case 4:
+                SystemUser systemUser = new SystemUser();
+                systemUser.login();
+                systemUser.menu();
+                break;
+            default:
+                System.out.println("please enter a valid choice");
+        }
     }
 
 }

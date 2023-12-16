@@ -122,6 +122,5 @@ public abstract class Person {
     public abstract void displayInfo();
 
     public abstract void login();
-    public abstract void mainMenu();
-    public abstract void register();
+    public abstract void menu();
 }

@@ -3,6 +3,7 @@ package GymDetails;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 public class Equipment {
@@ -13,6 +14,7 @@ public class Equipment {
 
     public Equipment() {
     }
+
     public Equipment(String Name, String equipmentCode, int quantity) {
         this.name = Name;
         this.equipmentCode = equipmentCode;
@@ -53,6 +55,21 @@ public class Equipment {
         } else {
             System.out.println("No photo loaded for " + name);
         }
+    }
+
+    public static Equipment addEquipmentInfo() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter equipment name");
+        String eqName = scanner.nextLine();
+        System.out.println("Enter equipment code");
+        String eqCode = scanner.nextLine();
+        System.out.println("Enter the quantity of it");
+        int eqQuantity = scanner.nextInt();
+
+        System.out.println("Equipment added successfully✅");
+
+        return new Equipment(eqName, eqCode, eqQuantity);
     }
 
     public void displayDetails() {

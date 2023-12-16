@@ -13,8 +13,7 @@ public class InBody {
     protected double height;            //in CM
     protected double weight;            //in kg
     protected double bodyFatMass;       //in kg
-    protected double bodyWater;    //in kg
-    protected double protein; //in kg
+    protected double bodyWater;         //in kg
     protected double fatNeeded;
 
     public double getFatNeeded() {
@@ -31,7 +30,7 @@ public class InBody {
 
     protected double carbNeeded;
     protected double proteinNeeded;
-    public InBody(String desire,double height, double weight, double bodyFatMass, double bodyWater, LocalDate dateOfInBody) {
+    public InBody(LocalDate dateOfInBody, String desire,double height, double weight, double bodyFatMass, double bodyWater) {
         this.desire=desire;
         this.dateOfInBody = dateOfInBody;
         this.height = height;
@@ -80,13 +79,6 @@ public class InBody {
         this.bodyWater = bodyWater;
     }
 
-    public double getProtein() {
-        return protein;
-    }
-
-    public void setProtein(double protein) {
-        this.protein = protein;
-    }
     public void knowNeeded(Customer customer) { // A function to know if someone looking to lose weight, gain muscle, or improve their overall body
         double BMI;
         double fatNeeded = 0;

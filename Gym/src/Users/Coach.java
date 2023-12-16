@@ -16,12 +16,12 @@ public class Coach extends Person {
     public static int coachId = 500;
     private List<Customer> customers;
 
-    public Coach(String name, String password, String gender, String address, String phoneNumber, String email, int age) {
-        super(name, password, gender, address, phoneNumber, email, age);
-        incrementCoachId();
-        this.customers = new ArrayList<>();
-        this.id = coachId;
+    public Coach() {
+    }
 
+    public Coach(String name, String password, String gender, String address, String phoneNumber, String email, int age, int workingHours) {
+        super(name, password, gender, address, phoneNumber, email, age);
+        this.workingHours = workingHours;
     }
 
     public Coach(String name) {
@@ -61,14 +61,6 @@ public class Coach extends Person {
         }
     }
 
-    public void addTrainee(Customer customer) {
-        if (customers.size() < 10) {
-            customers.add(customer);
-            System.out.println("Trainee added: " + customer.getName());
-        } else {
-            System.out.println("Cannot add trainee. Coach already has the maximum number of trainees (10).");
-        }
-    }
 
     public void getTraineeDetailsByName(String customerName) { //Returns details of a certain customer with a coach
 
@@ -110,11 +102,9 @@ public class Coach extends Person {
         }
     }
 
-
     @Override
-    public void mainMenu() {
+    public void menu() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello Captain " + getName());
 
         System.out.println("1. Show a list of my customers\n" +
                 "2. Get the in-body history of a specific customer\n" +
@@ -155,7 +145,7 @@ public class Coach extends Person {
         System.out.println("Enter your password:");
         String password = scanner.nextLine();
 
-        do {
+        /*do {
             boolean flag = false;
             for (int i = 2; i < Gym.listOfCoaches.size(); i += 2) {
                 if (Gym.listOfCoaches.contains(userName) && Gym.listOfCoaches.get(i + 1).equals(password)) {
@@ -170,7 +160,7 @@ public class Coach extends Person {
                 break;
             else
                 System.out.println("Username or password is wrong ❌");
-        } while (true);
+        } while (true);*/
     }
     @Override
     public void displayInfo() {
@@ -181,8 +171,28 @@ public class Coach extends Person {
 
     }
 
-    @Override
-    public void register() {
+    public static Person signUp() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter your Name");
+        String name = scanner.nextLine();
+        System.out.println("Enter your password:");
+        String password = scanner.nextLine();
+        System.out.println("Enter your Email");
+        String email = scanner.nextLine();
+        System.out.println("(Male / Female)");
+        String gender = scanner.nextLine();
+        System.out.println("Enter your address");
+        String address = scanner.nextLine();
+        System.out.println("Enter your Phone number");
+        String phoneNum = scanner.nextLine();
+        System.out.println("Enter your Age");
+        int age = scanner.nextInt();
+        System.out.println("Enter working hours");
+        int wHours = scanner.nextInt();
+        System.out.println("Coach added successfully✅");
+
+        Person person = new Coach(name, password, email, gender, address, phoneNum, age, wHours);
+        return person;
     }
 
 

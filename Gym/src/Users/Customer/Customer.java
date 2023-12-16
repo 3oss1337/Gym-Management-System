@@ -17,23 +17,22 @@ public class Customer extends Person {
     private int id;
     public InBody inBody;
     public static List<Subscription> subscriptions;
-    public static Subscription subscription;
-    private static List<InBody> inBodies;
+    public Subscription subscription;
+    private List<InBody> inBodies;
     LocalDate lastInBodyDate;
     public static int customerId = 0;
-
-
 
     public static void incrementCustomerId() {
         customerId++;
     }
-    public Customer(String name, String password, String gender, String address, String phoneNumber, String email, int age,Subscription sub) {
-        super(name,password, gender, address,phoneNumber,email, age);
-        incrementCustomerId();
-        this.id=customerId;
-        subscription=sub;
-        subscriptions = new ArrayList<>();
-        inBodies = new ArrayList<>();
+
+    public Customer() {
+    }
+
+    public Customer(String name, String password, String gender, String address, String phoneNumber, String email, int age, InBody inBody, Subscription subscription) {
+        super(name, password, gender, address, phoneNumber, email, age);
+        this.inBody = inBody;
+        this.subscription = subscription;
     }
 
     public List<InBody> getInBodies() {
@@ -67,9 +66,9 @@ public class Customer extends Person {
             System.out.println("Sorry, you can perform an InBody analysis only once every 30 days.");
         }
     }
-    public void displayAssignedCoachInfo(){
+    public void displayAssignedCoachInfo(Customer customer){
         for(Coach coach : listOfCoaches){
-            if(Customer.subscription.getCoachId()==coach.id)
+            if(customer.subscription.getCoachId()==coach.id)
             {
                 System.out.println(coach.id);
 
@@ -84,9 +83,9 @@ public class Customer extends Person {
 
         }
     }
-    public void displayMemberShipDetails()
+    public void displayMemberShipDetails(Customer customer)
     {
-        Customer.subscription.getMembership().display();
+        customer.subscription.getMembership().display();
     }
     public void chooseYourDreamBody(){
         inBody.knowNeeded(this);
@@ -109,7 +108,7 @@ public class Customer extends Person {
         System.out.println("Enter your password:");
         String password = scanner.nextLine();
 
-        do {
+        /*do {
             boolean flag = false;
             for (int i = 2; i < Gym.listOfCustomers.size(); i += 2) {
                 if (Gym.listOfCustomers.contains(userName) && Gym.listOfCustomers.get(i + 1).equals(password)) {
@@ -124,13 +123,12 @@ public class Customer extends Person {
                 break;
             else
                 System.out.println("Username or password is wrong ❌");
-        } while (true);
+        } while (true);*/
     }
 
     @Override
-    public void mainMenu() {
+    public void menu() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello " + getName() + '\n');
 
         System.out.println("1. To get your coach info\n" +
                 "2. Display for all the Gym Equipment\n" +
@@ -144,13 +142,13 @@ public class Customer extends Person {
 
         switch (choice) {
             case 1:
-                displayAssignedCoachInfo();
+                //displayAssignedCoachInfo();
                 break;
             case 2:
                 displayGymEquipment();
                 break;
             case 3:
-                displayMemberShipDetails();
+                //displayMemberShipDetails();
                 break;
             case 4:
                 //TODO make a method that searches inBody history list by date
@@ -165,9 +163,63 @@ public class Customer extends Person {
         }
     }
 
-    @Override
-    public void register() {
+    public static Person signUp() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter your Name");
+        String name = scanner.nextLine();
+        System.out.println("Enter your password:");
+        String password = scanner.nextLine();
+        System.out.println("Enter your Email");
+        String email = scanner.nextLine();
+        System.out.println("(Male / Female)");
+        String gender = scanner.nextLine();
+        System.out.println("Enter your address");
+        String address = scanner.nextLine();
+        System.out.println("Enter your Phone number");
+        String phoneNum = scanner.nextLine();
+        System.out.println("Enter your Age");
+        int age = scanner.nextInt();
 
+        System.out.println("Enter in-body date");
+        System.out.println("Year:");
+        int year = scanner.nextInt();
+        System.out.println("Month:");
+        int month = scanner.nextInt();
+        System.out.println("Day:");
+        int day = scanner.nextInt();
+        System.out.println("Enter your desire");
+        String desire = scanner.nextLine();
+        System.out.println("Enter your height");
+        Double height = scanner.nextDouble();
+        System.out.println("Enter your weight");
+        Double weight = scanner.nextDouble();
+        System.out.println("Enter your bodyFatMass");
+        Double bodyFatMass = scanner.nextDouble();
+        System.out.println("Enter your bodyWater");
+        Double bodyWater = scanner.nextDouble();
+        InBody inBody = new InBody(LocalDate.of(year, month, day), desire, height, weight, bodyFatMass, bodyWater);
+
+        System.out.println("Enter number of months you want to register");
+        int numberOfMonthsRegistered = scanner.nextInt();
+        System.out.println("Enter your number of days you want to register per week (3 / 6)");
+        int numberOfDaysRegistered = scanner.nextInt();
+        MemberShip memberShip = new MemberShip(numberOfMonthsRegistered, numberOfDaysRegistered);
+
+        System.out.println("Enter start year");
+        int startYear = scanner.nextInt();
+        System.out.println("Enter start month");
+        int startMonth = scanner.nextInt();
+        System.out.println("Enter start day");
+        int startDay = scanner.nextInt();
+
+        System.out.println("Member account is created successfully✅");
+
+        LocalDate startDate = LocalDate.of(startYear, startMonth, startDay);
+        LocalDate endDate = startDate.plusMonths(numberOfMonthsRegistered);
+        Subscription subscription = new Subscription(2, 5, memberShip, startDate, endDate);
+
+        Person person = new Customer(name, password, email, gender, address, phoneNum, age, inBody, subscription);
+        return person;
     }
     @Override
     public String toString() {
@@ -183,5 +235,4 @@ public class Customer extends Person {
     }
 
     //TODO display the in body information at a specific date
-
 }
