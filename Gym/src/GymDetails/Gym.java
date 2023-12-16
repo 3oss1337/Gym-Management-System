@@ -71,7 +71,7 @@ public class Gym {
         listOfSubscriptions.remove(subscription);
     }
 
-    public static void mainMenu (){
+    public static void mainMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. Log in as ADMIN\n" + "2. Log in as COACH\n" + "3. Log in as TRAINEE\n" + "4. Log in as receptionist");
 
@@ -105,7 +105,7 @@ public class Gym {
     }
 
     public static void saveObject(Object obj, String filePath) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath,true))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath, true))) {
             oos.writeObject(obj);
             System.out.println("Object saved to " + filePath);
         } catch (IOException e) {

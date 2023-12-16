@@ -3,7 +3,7 @@ package Users.Customer;
 public class MemberShip {
     private int numberOfMonthsRegistered;
     private int numberOfDaysRegistered;
-    private double price=0;
+    private double price = 0;
 
     public MemberShip(int numberOfMonthsRegistered, int numberOfDaysRegistered) {
         this.numberOfMonthsRegistered = numberOfMonthsRegistered;
@@ -66,8 +66,8 @@ public class MemberShip {
     }
 
     public void display() {
-        System.out.println("Your membership's number of days is : "+getNumberOfDaysRegistered());
-        System.out.println("Your membership's number of plans is : "+getNumberOfMonthsRegistered());
+        System.out.println("Your membership's number of days is : " + getNumberOfDaysRegistered());
+        System.out.println("Your membership's number of plans is : " + getNumberOfMonthsRegistered());
         System.out.println((int) (getPrice() - getPrice() % 100));
     }
 

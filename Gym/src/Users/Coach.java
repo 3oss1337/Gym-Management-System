@@ -49,7 +49,6 @@ public class Coach extends Person {
     }
 
 
-
     public void displayAllCustomers() {
         for (Customer customer : customers) {
             System.out.println(customer);
@@ -82,17 +81,18 @@ public class Coach extends Person {
             }
         }
     }
-    public void callInBodyHistory(Customer customer){
+
+    public void callInBodyHistory(Customer customer) {
         System.out.println("(Trainee's inbody history)");
-        for(InBody InBodies: customer.getInBodies()){
-            System.out.println("Date : "+InBodies.getDateOfInBody());
-            System.out.println("Height : "+Math.round(InBodies.getHeight()*10.0)/10.0); //rounded the value to one decimal place
-            System.out.println("Weight : "+InBodies.getWeight());
-            System.out.println("Body fat mass : "+InBodies.getBodyFatMass());
-            System.out.println("Body water : "+InBodies.getBodyWater());
-            System.out.println("The protein needed : "+InBodies.getProteinNeeded());
-            System.out.println("The carb needed : "+InBodies.getCarbNeeded());
-            System.out.println("The fat needed : "+InBodies.getFatNeeded());
+        for (InBody InBodies : customer.getInBodies()) {
+            System.out.println("Date : " + InBodies.getDateOfInBody());
+            System.out.println("Height : " + Math.round(InBodies.getHeight() * 10.0) / 10.0); //rounded the value to one decimal place
+            System.out.println("Weight : " + InBodies.getWeight());
+            System.out.println("Body fat mass : " + InBodies.getBodyFatMass());
+            System.out.println("Body water : " + InBodies.getBodyWater());
+            System.out.println("The protein needed : " + InBodies.getProteinNeeded());
+            System.out.println("The carb needed : " + InBodies.getCarbNeeded());
+            System.out.println("The fat needed : " + InBodies.getFatNeeded());
             System.out.print("\n");
         }
     }
@@ -157,6 +157,7 @@ public class Coach extends Person {
                 System.out.println("Username or password is wrong ❌");
         } while (true);*/
     }
+
     @Override
     public void displayInfo() {
         System.out.println("Name:" + this.name);
@@ -186,9 +187,10 @@ public class Coach extends Person {
         do {
             System.out.println("Enter working hours");
             wHours = scanner.nextInt();
-        }while (wHours > 10);
+        } while (wHours > 10);
         Person person = new Coach(name, password, email, gender, address, phoneNum, age, wHours);
-                System.out.println("Coach created successfully!");
+
+        System.out.println("Coach created successfully✅");
         return person;
     }
 

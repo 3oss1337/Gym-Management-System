@@ -1,14 +1,16 @@
 package Users;
+
 import java.util.Scanner;
+
 public abstract class Person {
 
-    protected  String name;
-    protected  String password;
-    public  String gender;
-    protected  String address;
+    protected String name;
+    protected String password;
+    public String gender;
+    protected String address;
     protected String phoneNumber;
-    public  String email;
-    public  int age;
+    public String email;
+    public int age;
 
     public Person() {
     }
@@ -82,37 +84,35 @@ public abstract class Person {
     public void setAge(int age) {
         this.age = age;
     }
-    public static String check_password(){
+
+    public static String check_password() {
         System.out.print("Password : (At Least 8 Digit!!)");
         Scanner scanner = new Scanner(System.in);
-        String PASS=scanner.next();
-        while(true){
+        String PASS = scanner.next();
+        while (true) {
             boolean containsOnlyLetters = PASS.matches("[a-zA-Z]+");
             boolean containsOnlyNumbers = PASS.matches("\\d+");
-            if(PASS.length()>=8){
-                if(!containsOnlyLetters&&!containsOnlyNumbers){
+            if (PASS.length() >= 8) {
+                if (!containsOnlyLetters && !containsOnlyNumbers) {
                     System.out.println(" ENTER CONFIRM PASSWORD");
-                }
-                else{
+                } else {
                     System.out.println("YOUR PASSWORD IS WEAK ENTER ANOTHER ONE");
-                    PASS=scanner.next();
+                    PASS = scanner.next();
                     continue;
                 }
                 String confirm_pass = scanner.next();
-                if(PASS.equals(confirm_pass)){
+                if (PASS.equals(confirm_pass)) {
                     //correct password
                     System.out.println("gada3 y hmada");
                     return PASS;
 
-                }
-                else{
+                } else {
                     System.out.println("NOT MATCHING WITH PASSORD");
                     continue;
                 }
-            }
-            else{
+            } else {
                 System.out.println("YOU MUST ENTER AT LEAST 8 DIGITS");
-                PASS=scanner.next();
+                PASS = scanner.next();
                 continue;
             }
 
@@ -122,5 +122,6 @@ public abstract class Person {
     public abstract void displayInfo();
 
     public abstract void login();
+
     public abstract void menu();
 }

@@ -1,6 +1,7 @@
 package Users.Customer;
 
 import java.time.LocalDate;
+
 import Users.Customer.MemberShip;
 
 public class Subscription {
@@ -57,11 +58,11 @@ public class Subscription {
         this.startDate = LocalDate.now();
         this.endDate = getStartDate().plusMonths(membership.getNumberOfMonthsRegistered());
     }
-    public Subscription(int customerId,int coachId,MemberShip membership)
-    {
-        this.customerId=customerId;
-        this.coachId=coachId;
-        this.membership=membership;
+
+    public Subscription(int customerId, int coachId, MemberShip membership) {
+        this.customerId = customerId;
+        this.coachId = coachId;
+        this.membership = membership;
     }
 
     public String toString() {

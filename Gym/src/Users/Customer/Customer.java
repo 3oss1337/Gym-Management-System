@@ -38,25 +38,31 @@ public class Customer extends Person {
     public List<InBody> getInBodies() {
         return inBodies;
     }
+
     public void setInBodies(List<InBody> inBodies) {
         this.inBodies = inBodies;
     }
+
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public Customer(String name) {
         super(name);
     }
+
     public LocalDate getLastInBodyDate() {
         return lastInBodyDate;
     }
 
-    public void addToInBodyHistory(InBody Inbody){
+    public void addToInBodyHistory(InBody Inbody) {
         inBodies.add(Inbody);
     }
+
     public void performInBody(InBody inBody) {
         if (inBody.canPerformInBody(this)) {
             inBodies.add(inBody);
@@ -66,38 +72,39 @@ public class Customer extends Person {
             System.out.println("Sorry, you can perform an InBody analysis only once every 30 days.");
         }
     }
-    public void displayAssignedCoachInfo(Customer customer){
-        for(Coach coach : listOfCoaches){
-            if(customer.subscription.getCoachId()==coach.id)
-            {
+
+    public void displayAssignedCoachInfo(Customer customer) {
+        for (Coach coach : listOfCoaches) {
+            if (customer.subscription.getCoachId() == coach.id) {
                 System.out.println(coach.id);
 
             }
         }
     }
-    public void displayGymEquipment(){
 
-        for(Equipment equipment : listOfEquipments)
-        {
+    public void displayGymEquipment() {
+
+        for (Equipment equipment : listOfEquipments) {
             equipment.displayDetails();
 
         }
     }
-    public void displayMemberShipDetails(Customer customer)
-    {
+
+    public void displayMemberShipDetails(Customer customer) {
         customer.subscription.getMembership().display();
     }
-    public void chooseYourDreamBody(){
+
+    public void chooseYourDreamBody() {
         inBody.knowNeeded(this);
     }
 
     @Override
     public void displayInfo() {
-        System.out.println("Name:"+ this.name);
-        System.out.println("Phone number:"+ this.phoneNumber);
-        System.out.println("Gender:"+ this.gender);
-        System.out.println("Mail:"+ this.email);
-        System.out.println("ID:"+ this.id);
+        System.out.println("Name:" + this.name);
+        System.out.println("Phone number:" + this.phoneNumber);
+        System.out.println("Gender:" + this.gender);
+        System.out.println("Mail:" + this.email);
+        System.out.println("ID:" + this.id);
     }
 
     @Override
@@ -221,6 +228,7 @@ public class Customer extends Person {
         Person person = new Customer(name, password, email, gender, address, phoneNum, age, inBody, subscription);
         return person;
     }
+
     @Override
     public String toString() {
         return "Customer{" +

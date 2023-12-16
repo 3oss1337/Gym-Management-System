@@ -9,7 +9,7 @@ import Users.Customer.Subscription;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class SystemUser extends Person{
+public class SystemUser extends Person {
     private int workingHours;
     private int id;
 
@@ -51,6 +51,7 @@ public class SystemUser extends Person{
                 System.out.println("Username or password is wrong ❌");
         } while (true);*/
     }
+
     @Override
     public void menu() {
         Scanner scanner = new Scanner(System.in);
@@ -105,8 +106,8 @@ public class SystemUser extends Person{
 
         do {
             System.out.println("Enter working hours");
-             wHours = scanner.nextInt();
-        }while (wHours > 10);
+            wHours = scanner.nextInt();
+        } while (wHours > 10);
 
         System.out.println("System user added successfully✅");
 

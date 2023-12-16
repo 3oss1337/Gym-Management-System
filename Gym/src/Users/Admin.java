@@ -12,9 +12,10 @@ import static Users.Coach.signUp;
 
 public class Admin extends Person {
 
-    public Admin(){
+    public Admin() {
 
     }
+
     @Override
     public void displayInfo() {
 
@@ -33,7 +34,7 @@ public class Admin extends Person {
                 break;
             else
                 System.out.println("Username or password is wrong ❌");
-        }while (true);
+        } while (true);
     }
 
     @Override
@@ -137,9 +138,11 @@ public class Admin extends Person {
     public static void addCoach(Coach coach) {
         Gym.listOfCoaches.add(coach);
     }
+
     public static void addSystemUser(SystemUser systemUser) {
         Gym.listOfSystemUsers.add(systemUser);
     }
+
     public static void addEquipment(Equipment equipment) {
         Gym.listOfEquipments.add(equipment);
     }
@@ -155,6 +158,7 @@ public class Admin extends Person {
             return Integer.compare(numOfMembers2, numOfMembers1);
         }
     }
+
     public static void sortCoachesByNumOfMembers(List<Coach> coaches) {
         Collections.sort(coaches, new CoachSortByNumOfMembers());
         System.out.println("Coaches sorted by the number of members:");

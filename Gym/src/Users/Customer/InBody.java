@@ -30,8 +30,9 @@ public class InBody {
 
     protected double carbNeeded;
     protected double proteinNeeded;
-    public InBody(LocalDate dateOfInBody, String desire,double height, double weight, double bodyFatMass, double bodyWater) {
-        this.desire=desire;
+
+    public InBody(LocalDate dateOfInBody, String desire, double height, double weight, double bodyFatMass, double bodyWater) {
+        this.desire = desire;
         this.dateOfInBody = dateOfInBody;
         this.height = height;
         this.weight = weight;
