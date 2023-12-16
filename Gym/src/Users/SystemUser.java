@@ -101,9 +101,14 @@ public class SystemUser extends Person{
         String phoneNum = scanner.nextLine();
         System.out.println("Enter your Age");
         int age = scanner.nextInt();
-        System.out.println("Enter working hours");
-        int wHours = scanner.nextInt();
-        System.out.println("Coach added successfully✅");
+        int wHours;
+
+        do {
+            System.out.println("Enter working hours");
+             wHours = scanner.nextInt();
+        }while (wHours > 10);
+
+        System.out.println("System user added successfully✅");
 
         Person person = new SystemUser(name, password, email, gender, address, phoneNum, age, wHours);
         return person;
