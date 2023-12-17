@@ -123,7 +123,6 @@ public abstract class Person implements Serializable {
     }
 
     public abstract void displayInfo();
-
     public abstract Person login();
 
     public abstract void menu();

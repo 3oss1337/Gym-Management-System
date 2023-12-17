@@ -5,6 +5,9 @@ import GymDetails.Gym;
 import Users.Customer.Customer;
 
 import java.io.Serializable;
+import java.lang.management.MonitorInfo;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.*;
 
 import static Users.Coach.signUp;
@@ -41,11 +44,9 @@ public class Admin extends Person implements Serializable {
         System.out.println("Hello Boss");
 
         System.out.println("1. Add \n2. Search \n" +
-                "3. Get subscription history of a customer\n" +
-                "4. Display all the customers that subscribed to the gym in a given month/day\n" +
+                "3. Display all the customers that subscribed to the gym in a given month/day\n" +
                 "5. Display all the customers of a specific coach\n" +
-                "6. Display the GYM income in a given month\n" +
-                "7. Display the coaches sorted in terms of the most assigned number of customers to the coaches");
+                ". Display the coaches sorted in terms of the most assigned number of customers to the coaches");
 
         System.out.println("Choose your choice");
         int choice = scanner.nextInt();
@@ -70,7 +71,6 @@ public class Admin extends Person implements Serializable {
                 }
                 break;
             case 2:
-                //TODO edit case 2,3
                 switch (typesAdminCanEdit()) {
                     case 1:
                         Admin.editDeleteCoach();
@@ -84,27 +84,33 @@ public class Admin extends Person implements Serializable {
                 }
                 break;
             case 3:
-                //TODO call display Subscription history FN a Specific customer
-                break;
-            case 4:
-               /* if (GYM.listOfCoaches != null) {
-                    System.out.println("Deserialized People:");
-                    for (Coach coach : GYM.listOfCoaches) {
-                        System.out.println(coach);
+                System.out.println("Enter month: ");
+                int number = new Scanner(System.in).nextInt();
+                Month month =LocalDate.of(2023, number, 16).getMonth() ;
+                for (Customer customer : Gym.listOfCustomers) {
+                    if (customer.getSubscription().getStartDate().getMonth().compareTo(month) == 0) {
+                        customer.displayInfo();
                     }
-                }*/
+                }
                 break;
             case 5:
-                //TODO call FN that display all the users for a specific coach
+                System.out.println("Enter coach name: ");
+                String coachName = new Scanner(System.in).nextLine();
+                displayAllUsersForASpecific(coachName);
                 break;
             case 6:
-                //TODO call FN that display gym income in a specific month
-                break;
-            case 7:
-                //TODO call FN that display coaches sorted by most member with
+                Users.CoachSortByNumOfMembers.sortCoachesByNumOfMembers(Gym.listOfCoaches);
                 break;
             default:
                 System.out.println("please enter a valid choice");
+        }
+    }
+
+    private void displayAllUsersForASpecific(String targetCoach) {
+        for (Customer customer : Gym.listOfCustomers) {
+            if (customer.getSubscription().getCoachName().equals(targetCoach)) {
+                customer.displayInfo();
+            }
         }
     }
 

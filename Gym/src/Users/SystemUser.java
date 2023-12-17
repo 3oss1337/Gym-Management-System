@@ -113,7 +113,8 @@ public class SystemUser extends Person implements Serializable {
                 System.out.println("what value you need to edit\n" +
                         "1.mobile number\t" +
                         "2.password\t" +
-                        "3.address");
+                        "3.address\t" +
+                        "4. any");
 
                 int choice = scanner.nextInt();
 
@@ -131,6 +132,8 @@ public class SystemUser extends Person implements Serializable {
                     case 3:
                         customer.setAddress(newValue);
                         break;
+                    case 4:
+                        customer.subscription.setCoachName(newValue);
                 }
                 System.out.println("User edited succesfully✅");
             }
@@ -160,7 +163,7 @@ public class SystemUser extends Person implements Serializable {
                 }
                 break;
             case 2:
-                System.out.print("Enter user name: ");
+                System.out.print("Enter phone number: ");
                 String phoneNum = scanner.nextLine();
                 for (Customer customer : Gym.listOfCustomers) {
                     if (customer.getName().equals(phoneNum)) {

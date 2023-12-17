@@ -5,10 +5,8 @@ import Users.Customer.Customer;
 import Users.Customer.InBody;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.*;
 
 public class Coach extends Person implements Serializable{
 
@@ -34,7 +32,7 @@ public class Coach extends Person implements Serializable{
     }
 
     public List<Customer> getAllTrainees() {
-        return customers;
+        return Gym.listOfCustomers;
     }
 
     public int getId() {
@@ -50,9 +48,10 @@ public class Coach extends Person implements Serializable{
     }
 
 
-    public void displayAllCustomers() {
-        for (Customer customer : customers) {
-            System.out.println(customer);
+    public void displayMyCustomers(String CoachName) {
+        for (Customer customer : Gym.listOfCustomers) {
+            if (customer.subscription.getCoachName().equals(CoachName))
+                customer.displayInfo();
         }
     }
 
@@ -60,7 +59,7 @@ public class Coach extends Person implements Serializable{
     public void getTraineeDetailsByName(String customerName) { //Returns details of a certain customer with a coach
 
         boolean flag = false;
-        for (Customer customer : customers) {
+        for (Customer customer : Gym.listOfCustomers) {
             flag = false;
             if (customer.name.trim().equalsIgnoreCase(customerName.trim())) {
                 System.out.println("Match found for: " + customerName);
@@ -75,17 +74,21 @@ public class Coach extends Person implements Serializable{
     }
 
     public void getTraineesByGender(String gender) {
-        for (Customer customer : customers) {
-            if (customer.gender.trim().equalsIgnoreCase(gender.trim())) {
-                System.out.println("The " + gender + " Customers are : ");
-                System.out.println(customer);
+        System.out.println("The " + gender + " Customers are : ");
+        for (Customer customer : Gym.listOfCustomers) {
+            if (customer.gender.equalsIgnoreCase(gender)) {
+                customer.displayInfo();
             }
         }
     }
 
-    public void callInBodyHistory(Customer customer) {
-        System.out.println("(Trainee's inbody history)");
-        for (InBody InBodies : customer.getInBodies()) {
+    public void callInBodyHistory(String coachName) {
+        for (Customer customer : Gym.listOfCustomers) {
+            if (customer.getName().equals(coachName)) {
+                System.out.println("Trainee's in-body history");
+                System.out.println(customer.inBody);
+            }
+        /*for (InBody InBodies : customer.getInBodies()) {
             System.out.println("Date : " + InBodies.getDateOfInBody());
             System.out.println("Height : " + Math.round(InBodies.getHeight() * 10.0) / 10.0); //rounded the value to one decimal place
             System.out.println("Weight : " + InBodies.getWeight());
@@ -95,41 +98,51 @@ public class Coach extends Person implements Serializable{
             System.out.println("The carb needed : " + InBodies.getCarbNeeded());
             System.out.println("The fat needed : " + InBodies.getFatNeeded());
             System.out.print("\n");
+        }*/
         }
     }
 
     @Override
     public void menu() {
+        Coach coach = (Coach) login();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("1. Show a list of my customers\n" +
-                "2. Get the in-body history of a specific customer\n" +
-                "3. Get all the details of a specific customer by his name\n" +
-                "4. Show a list of all my female/male customers");
+        boolean back = false;
+        do {
+            System.out.println("1. Show a list of my customers\n" +
+                    "2. Get the in-body history of a specific customer\n" +
+                    "3. Get all the details of a specific customer by his name\n" +
+                    "4. Show a list of all my female/male customers\n ");
 
-        System.out.println("Choose your choice");
-        int choice = scanner.nextInt();
+            System.out.println("Choose your choice");
+            int choice = scanner.nextInt();
 
-        switch (choice) {
-            case 1:
-                displayAllCustomers();
-                break;
-            case 2:
-                //TODO call in-body history
-                break;
-            case 3:
-                System.out.println("Enter trainee's name: ");
-                String traineeName = scanner.nextLine();
-                getTraineeDetailsByName(traineeName);
-                break;
-            case 4:
-                System.out.println("Choose which gender to display male/female");
-                String gender = scanner.nextLine();
-                getTraineesByGender(gender);
-                break;
-            default:
-                System.out.println("please enter a valid choice");
-        }
+            int goBack;
+            switch (choice) {
+                case 1:
+                    displayMyCustomers(coach.getName());
+                    break;
+                case 2:
+                    System.out.println("Enter user name:");
+                    String userName = new Scanner(System.in).nextLine();
+                    callInBodyHistory(userName);
+                    break;
+                case 3:
+                    System.out.println("Enter trainee's name: ");
+                    String traineeName = new Scanner(System.in).nextLine();
+                    getTraineeDetailsByName(traineeName);
+                    break;
+                case 4:
+                    System.out.println("Choose which gender to display male/female");
+                    String gender = new Scanner(System.in).nextLine();
+                    getTraineesByGender(gender);
+                    break;
+                default:
+                    System.out.println("please enter a valid choice");
+            }
+
+
+        }while (goBack());
 
     }
 
@@ -196,6 +209,17 @@ public class Coach extends Person implements Serializable{
         return person;
     }
 
+    public boolean goBack(){
+        int goBack;
+        boolean back = false;
+
+        System.out.println("press 0 to back / 1 to end");
+        goBack = new Scanner(System.in).nextInt();
+        if (goBack == 0)
+            back = true;
+        return back;
+    }
+
     public String toString() {
         return "Coach{" +
                 "name='" + name + '\'' +
@@ -210,3 +234,23 @@ public class Coach extends Person implements Serializable{
     }
 }
 
+class CoachSortByNumOfMembers implements Comparator<Coach> {
+    @Override
+    public int compare(Coach coach1, Coach coach2) {
+        // Compare coaches based on the number of customers they have
+        int numOfMembers1 = coach1.getAllTrainees().size();
+        int numOfMembers2 = coach2.getAllTrainees().size();
+
+        // Descending order (largest number of members first)
+        return Integer.compare(numOfMembers2, numOfMembers1);
+    }
+
+    public static void sortCoachesByNumOfMembers(List<Coach> coaches) {
+        Collections.sort(coaches, new CoachSortByNumOfMembers());
+
+            System.out.println("Coaches sorted by the number of members:");
+            for (Coach coach : coaches) {
+                System.out.println("Coach: " + coach.getName() + ", Number of Customers: " + coach.getAllTrainees().size());
+        }
+    }
+}

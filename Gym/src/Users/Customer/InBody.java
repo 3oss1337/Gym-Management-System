@@ -16,6 +16,9 @@ public class InBody implements Serializable {
     protected double bodyFatMass;       //in kg
     protected double bodyWater;         //in kg
     protected double fatNeeded;
+    protected double carbNeeded;
+    protected double proteinNeeded;
+
     private static final long serialVersionUID = -6085866881041085537L;
 
     public double getFatNeeded() {
@@ -29,9 +32,6 @@ public class InBody implements Serializable {
     public double getProteinNeeded() {
         return proteinNeeded;
     }
-
-    protected double carbNeeded;
-    protected double proteinNeeded;
 
     public InBody(LocalDate dateOfInBody, String desire, double height, double weight, double bodyFatMass, double bodyWater) {
         this.desire = desire;
@@ -144,6 +144,19 @@ public class InBody implements Serializable {
         }
     }
 
+    public void getInBodyDetails(LocalDate of, Customer customer) {
+        if (customer.inBody.getDateOfInBody().equals(of)){
+            System.out.println(
+                "dateOfInBody=" + customer.inBody.getDateOfInBody() +
+                        ", height=" + customer.inBody.height +
+                        ", weight=" + customer.inBody.weight +
+                        ", bodyFatMass=" + customer.inBody.bodyFatMass +
+                        ", bodyWater=" + customer.inBody.bodyWater +
+                        '}');
+        }
+        else
+            System.out.println("There is no in-body in that day");
+    }
     public String toString() {
         return "InBody{" +
                 "dateOfInBody=" + dateOfInBody +

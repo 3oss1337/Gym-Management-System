@@ -87,7 +87,6 @@ public class Gym implements Serializable {
                 break;
             case 2:
                 Coach coach = new Coach();
-                coach.login();
                 coach.menu();
                 break;
             case 3:
@@ -107,7 +106,6 @@ public class Gym implements Serializable {
     public static void saveToFile(ArrayList<?> arrayList, String filePath) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(arrayList);
-            System.out.println("Objects written to file successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }

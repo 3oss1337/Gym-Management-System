@@ -96,7 +96,7 @@ public class Customer extends Person implements Serializable {
         for (Customer customer : Gym.listOfCustomers) {
             if (customer.getName().equalsIgnoreCase(customerName)) {
                 for (Coach coach : Gym.listOfCoaches) {
-                    if (customer.getSubscription().getCoachName().equals(coach.getId())) {
+                    if (customer.getSubscription().getCoachName().equals(coach.getName())) {
                         System.out.println("Assigned Coach for " + customer.getName() + ":");
                         coach.displayInfo();
                         found = true;
@@ -111,20 +111,9 @@ public class Customer extends Person implements Serializable {
         }
     }
 
-    /*public void displayGymEquipment() {
-        for (Equipment equipment : listOfEquipments) {
-            equipment.displayDetails();
-        }
-    }*/
-
     public void displayMemberShipDetails(Customer customer) {
         customer.subscription.getMembership().display();
     }
-
-    public void chooseYourDreamBody() {
-
-    }
-
     @Override
     public void displayInfo() {
         System.out.println("Name:" + this.name);
@@ -180,7 +169,7 @@ public class Customer extends Person implements Serializable {
 
         switch (choice) {
             case 1:
-                //displayAssignedCoachInfo();
+                displayAssignedCoachForCustomer(customer.getName());
                 break;
             case 2:
                 Gym.displayEquipments();
@@ -189,12 +178,18 @@ public class Customer extends Person implements Serializable {
                 customer.subscription.getMembership().display();
                 break;
             case 4:
-                //TODO make a method that searches inBody history list by date
-                //int date = scanner.nextInt();
-                //inBody.getInBodyDetails(date);
+                System.out.println("Enter in-body date");
+                System.out.println("Year:");
+                int year = scanner.nextInt();
+                System.out.println("Month:");
+                int month = scanner.nextInt();
+                System.out.println("Day:");
+                int day = scanner.nextInt();
+
+                customer.inBody.getInBodyDetails(LocalDate.of(year, month, day), customer);
                 break;
             case 5:
-                inBody.knowNeeded(customer);
+                customer.inBody.knowNeeded(customer);
                 break;
             default:
                 System.out.println("please enter a valid choice");
@@ -250,12 +245,17 @@ public class Customer extends Person implements Serializable {
         System.out.println("Enter start day");
         int startDay = scanner.nextInt();
 
+        Gym.displayCoaches(listOfCoaches);
+
+        System.out.println("Enter coach name");
+        String coachName = new Scanner(System.in).nextLine();
+
         System.out.println("Member account is created successfully✅");
 
         LocalDate startDate = LocalDate.of(startYear, startMonth, startDay);
         LocalDate endDate = startDate.plusMonths(numberOfMonthsRegistered);
-        Subscription subscription = new Subscription(2, "Ahmed", memberShip, startDate, endDate);
-        subscriptionsList.add(subscription);
+        Subscription subscription = new Subscription(2, coachName, memberShip, startDate, endDate);
+        Gym.listOfSubscriptions.add(subscription);
 
         Person person = new Customer(name, password, gender, address, phoneNum, email, age, inBody, subscription);
         return person;
