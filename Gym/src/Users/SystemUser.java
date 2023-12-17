@@ -128,6 +128,7 @@ public class SystemUser extends Person implements Serializable {
                         customer.setAddress(newValue);
                         break;
                 }
+                System.out.println("User edited succesfully✅");
             }
             if (found)
                 break;
@@ -163,6 +164,8 @@ public class SystemUser extends Person implements Serializable {
                 }
                 break;
         }
+
+        System.out.println("User deleted succesfully✅");
     }
 
     public static Person signUp() {

@@ -79,7 +79,7 @@ public class Admin extends Person implements Serializable {
                         Admin.editDeleteSystemUser();
                         break;
                     case 3:
-                        //Admin.edit("Equipment.txt");
+                        Admin.editEquipment();
                         break;
                 }
                 break;
@@ -272,10 +272,11 @@ public class Admin extends Person implements Serializable {
                                     systemUser.setAddress(newValue);
                                     break;
                             }
+                            System.out.println("System user edited succesfully✅" );
                         }
                         else if (editOrDelete == 2){
                             Gym.listOfSystemUsers.remove(systemUser);
-                            System.out.println("Deleted");
+                            System.out.println("System user deleted succesfully✅");
                         }
                     }
                     if (found)
@@ -315,8 +316,10 @@ public class Admin extends Person implements Serializable {
                                     systemUser.setAddress(newValue);
                                     break;
                             }
+                            System.out.println("System user deleted succesfully✅");
                         } else if (choice == 2) {
                             Gym.listOfSystemUsers.remove(systemUser);
+                            System.out.println("System user deleted succesfully✅");
                         }
                     }
                     if (found)
@@ -327,7 +330,6 @@ public class Admin extends Person implements Serializable {
         if (!found)
             System.out.println("There no user with this number");
     }
-
     public static void addEquipment(Equipment equipment) {
         Gym.listOfEquipments.add(equipment);
     }
@@ -343,24 +345,36 @@ public class Admin extends Person implements Serializable {
                 found = true;
 
                 equipment.displayInfo();
-                System.out.println("what value you need to edit\n" +
-                        "1.Equipment code\t" +
-                        "2.quantity");
+                equipment.displayInfo();
+                System.out.println("what do you want to do: \n" +
+                        "1. edit\t" +
+                        "2. delete");
+                int editOrDelete =  new Scanner(System.in).nextInt();
 
-                int choice = scanner.nextInt();
+                if (editOrDelete == 1) {
+                    System.out.println("what value you need to edit\n" +
+                            "1.Equipment code\t" +
+                            "2.quantity");
 
-                System.out.println("Enter the new value");
-                Scanner scanner1 = new Scanner(System.in);
+                    int choice = scanner.nextInt();
 
-                switch (choice){
-                    case 1:
-                        String newValue = scanner1.nextLine();
-                        equipment.setEquipmentCode(newValue);
-                        break;
-                    case 2:
-                        int newVal = scanner1.nextInt();
-                        equipment.setQuantity(newVal);
-                        break;
+                    System.out.println("Enter the new value");
+                    Scanner scanner1 = new Scanner(System.in);
+
+                    switch (choice) {
+                        case 1:
+                            String newValue = scanner1.nextLine();
+                            equipment.setEquipmentCode(newValue);
+                            break;
+                        case 2:
+                            int newVal = scanner1.nextInt();
+                            equipment.setQuantity(newVal);
+                            break;
+                    }
+                    System.out.println("Equipment deleted succesfully✅" );
+                }else if(editOrDelete == 2){
+                    Gym.listOfEquipments.remove(equipment);
+                    System.out.println("Equipment deleted succesfully✅" );
                 }
             }
             if (found)

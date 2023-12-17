@@ -226,7 +226,7 @@ public class Customer extends Person implements Serializable {
         LocalDate endDate = startDate.plusMonths(numberOfMonthsRegistered);
         Subscription subscription = new Subscription(2, 5, memberShip, startDate, endDate);
 
-        Person person = new Customer(name, password, email, gender, address, phoneNum, age, inBody, subscription);
+        Person person = new Customer(name, password, gender, address, phoneNum, email, age, inBody, subscription);
         return person;
     }
 
@@ -240,8 +240,8 @@ public class Customer extends Person implements Serializable {
                 ", phoneNumber='" + getPhoneNumber() + '\'' +
                 ", email='" + getEmail() + '\'' +
                 ", age=" + getAge() +
-                ", inBody=" + inBody +
-                ", subscription=" + subscription +
+                ", " + inBody +
+                ", " + subscription +
                 '}';
     }
 

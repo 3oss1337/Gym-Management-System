@@ -51,15 +51,16 @@ public class MemberShip implements Serializable {
 
         if (getNumberOfMonthsRegistered() == 3) {
             setPrice(getPrice() * numberOfMonthsRegistered - (0.25 * numberOfMonthsRegistered * getPrice()));
-            return getPrice();
+            return getPrice() - getPrice() % 100;
         } else if (getNumberOfMonthsRegistered() == 6) {
-            setPrice(getPrice() * numberOfMonthsRegistered - (0.3329 * numberOfMonthsRegistered * getPrice()));
-            return getPrice();
+            setPrice(getPrice() * numberOfMonthsRegistered - (0.34 * numberOfMonthsRegistered * getPrice()));
+            return getPrice() - getPrice() % 100;
         } else if (getNumberOfMonthsRegistered() == 12) {
-            setPrice(getPrice() * numberOfMonthsRegistered - (0.45 * numberOfMonthsRegistered * getPrice()));
-            return getPrice();
+            setPrice(getPrice() * numberOfMonthsRegistered - (0.46 * numberOfMonthsRegistered * getPrice()));
+            return getPrice() - getPrice() % 100;
         } else {
-            return getPrice();
+            setPrice(getPrice() * numberOfMonthsRegistered - (0.43 * numberOfMonthsRegistered * getPrice()));
+            return getPrice() - getPrice() % 100;
         }
     }
 
@@ -74,6 +75,8 @@ public class MemberShip implements Serializable {
     }
 
     public String toString() {
-        return "Ur Member Ship Plan {" + "Number Of Days '" + numberOfDaysRegistered + '\'' + ",Number Of Months '" + numberOfMonthsRegistered + '\'' + ", Price '" + price + '\'' + '}';
+        return "Ur Member Ship Plan {" + "Number Of Days '"
+                + numberOfDaysRegistered + '\'' + ",Number Of Months '" + numberOfMonthsRegistered + '\''
+                + ", Price '" + calculateTotalPrice(numberOfMonthsRegistered , calcMonthPrice(numberOfDaysRegistered)) + '\'' + '}';
     }
 }

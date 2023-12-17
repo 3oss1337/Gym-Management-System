@@ -189,7 +189,7 @@ public class Coach extends Person implements Serializable{
             System.out.println("Enter working hours");
             wHours = scanner.nextInt();
         } while (wHours > 10);
-        Person person = new Coach(name, password, email, gender, address, phoneNum, age, wHours);
+        Person person = new Coach(name, password, gender, address, phoneNum, email, age, wHours);
 
         System.out.println("Coach created successfully✅");
         return person;

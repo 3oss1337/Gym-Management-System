@@ -70,7 +70,7 @@ public class Subscription implements Serializable {
         return "Ur Subscription {" +
                 "Ur Id='" + customerId + '\'' +
                 ", Ur coach Id'" + coachId + '\'' +
-                ", Ur Member Ship is'" + membership + '\'' +
+                ", " + membership + '\'' +
                 ", Subscription starts at'" + startDate + '\'' +
                 ", Subscription ends at='" + endDate + '\'' +
                 '}';
