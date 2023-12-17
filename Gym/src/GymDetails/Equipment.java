@@ -12,6 +12,7 @@ public class Equipment implements Serializable {
     public String equipmentCode;
     public int quantity;
     public BufferedImage equipmentPhoto;
+    private static final long serialVersionUID = 2056811418736177594L;
 
     public Equipment() {
     }
@@ -37,6 +38,22 @@ public class Equipment implements Serializable {
     public BufferedImage getPhoto() {
         //returns an object with the photo;
         return equipmentPhoto;
+    }
+
+    public String getEquipmentCode() {
+        return equipmentCode;
+    }
+
+    public void setEquipmentCode(String equipmentCode) {
+        this.equipmentCode = equipmentCode;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public void setPhoto(BufferedImage equipmentPhoto) {
@@ -78,6 +95,12 @@ public class Equipment implements Serializable {
         System.out.println("Equipment Code: " + equipmentCode);
         System.out.println("Quantity Available: " + quantity);
     }
+    public void displayInfo() {
+        System.out.println("Name:" + this.name);
+        System.out.println("Code:" + this.equipmentCode);
+        System.out.println("Quantity:" + this.quantity);
+    }
+
     public String toString() {
         return "Equipment{" +
                 "name='" + name + '\'' +

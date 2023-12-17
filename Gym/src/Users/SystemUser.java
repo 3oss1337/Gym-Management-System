@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class SystemUser extends Person implements Serializable {
+    private static final long serialVersionUID = -2413217214226144664L;
     private int workingHours;
     private int id;
 
@@ -24,6 +25,12 @@ public class SystemUser extends Person implements Serializable {
 
     @Override
     public void displayInfo() {
+        System.out.println("Name:" + this.name);
+        System.out.println("Phone number:" + this.phoneNumber);
+        System.out.println("Gender:" + this.gender);
+        System.out.println("Mail:" + this.email);
+        System.out.println("Age:" + this.age);
+        System.out.println("Working hours:" + this.workingHours);
 
     }
 
@@ -70,10 +77,10 @@ public class SystemUser extends Person implements Serializable {
                 SystemUser.addCustomer((Customer) person);
                 break;
             case 2:
-                //SystemUser.editCustomer();
+                SystemUser.editCustomer();
                 break;
             case 3:
-                //SystemUser.deleteCustomer();
+                SystemUser.deleteCustomer();
                 break;
             case 4:
                 //(Same FN of the admin)
@@ -86,6 +93,76 @@ public class SystemUser extends Person implements Serializable {
 
     public static void addCustomer(Customer customer) {
         Gym.listOfCustomers.add(customer);
+    }
+    public static void editCustomer() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter mobile number for the member you want to edit his info: ");
+        String searchTerm = scanner.nextLine();
+
+        boolean found = false;
+
+        for (Customer customer: Gym.listOfCustomers){
+            if (customer.getPhoneNumber().equals(searchTerm)) {
+                found = true;
+
+                customer.displayInfo();
+                System.out.println("what value you need to edit\n" +
+                        "1.mobile number\t" +
+                        "2.password\t" +
+                        "3.address");
+
+                int choice = scanner.nextInt();
+
+                Scanner scanner1 = new Scanner(System.in);
+                System.out.println("Enter the new value");
+                String newValue = scanner1.nextLine();
+
+                switch (choice){
+                    case 1:
+                        customer.setPhoneNumber(newValue);
+                        break;
+                    case 2:
+                        customer.setPassword(newValue);
+                        break;
+                    case 3:
+                        customer.setAddress(newValue);
+                        break;
+                }
+            }
+            if (found)
+                break;
+        }
+        if (!found)
+            System.out.println("There no user with this number");
+    }
+    public static void deleteCustomer(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Search by: " +
+                "1. name" +
+                "2. phone number");
+        int choice = scanner.nextInt();
+
+        switch (choice){
+            case 1:
+                System.out.print("Enter user name: ");
+                String name = scanner.nextLine();
+                for (Customer customer: Gym.listOfCustomers){
+                    if (customer.getName().equals(name)){
+                        Gym.listOfCustomers.remove(customer);
+                        break;
+                    }
+                }
+                break;
+            case 2:
+                System.out.print("Enter user name: ");
+                String phoneNum = scanner.nextLine();
+                for (Customer customer: Gym.listOfCustomers){
+                    if (customer.getName().equals(phoneNum)){
+                        Gym.listOfCustomers.remove(customer);
+                    }
+                }
+                break;
+        }
     }
 
     public static Person signUp() {
@@ -113,7 +190,7 @@ public class SystemUser extends Person implements Serializable {
 
         System.out.println("System user added successfully✅");
 
-        Person person = new SystemUser(name, password, email, gender, address, phoneNum, age, wHours);
+        Person person = new SystemUser(name, password, gender, address, phoneNum, email,age, wHours);
         return person;
     }
 

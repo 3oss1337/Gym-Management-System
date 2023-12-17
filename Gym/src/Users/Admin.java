@@ -2,12 +2,10 @@ package Users;
 
 import GymDetails.Equipment;
 import GymDetails.Gym;
+import Users.Customer.Customer;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static Users.Coach.signUp;
 
@@ -42,12 +40,12 @@ public class Admin extends Person implements Serializable {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello Boss");
 
-        System.out.println("1. Add \n2. edit \n3. delete\n" +
-                "4. Get subscription history of a customer\n" +
-                "5. Display all the customers that subscribed to the gym in a given month/day\n" +
-                "6. Display all the customers of a specific coach\n" +
-                "7. Display the GYM income in a given month\n" +
-                "8. Display the coaches sorted in terms of the most assigned number of customers to the coaches");
+        System.out.println("1. Add \n2. Search \n" +
+                "3. Get subscription history of a customer\n" +
+                "4. Display all the customers that subscribed to the gym in a given month/day\n" +
+                "5. Display all the customers of a specific coach\n" +
+                "6. Display the GYM income in a given month\n" +
+                "7. Display the coaches sorted in terms of the most assigned number of customers to the coaches");
 
         System.out.println("Choose your choice");
         int choice = scanner.nextInt();
@@ -75,10 +73,10 @@ public class Admin extends Person implements Serializable {
                 //TODO edit case 2,3
                 switch (typesAdminCanEdit()) {
                     case 1:
-                        //Admin.edit("Coach.txt");
+                        Admin.editDeleteCoach();
                         break;
                     case 2:
-                        //    Admin.edit("Receptionist.txt");
+                        Admin.editDeleteSystemUser();
                         break;
                     case 3:
                         //Admin.edit("Equipment.txt");
@@ -86,22 +84,9 @@ public class Admin extends Person implements Serializable {
                 }
                 break;
             case 3:
-                switch (typesAdminCanEdit()) {
-                    case 1:
-                        //Admin.delete("Coach.txt");
-                        break;
-                    case 2:
-                        //Admin.delete("Receptionist.txt");
-                        break;
-                    case 3:
-                        //Admin.delete("Equipment.txt");
-                        break;
-                }
-                break;
-            case 4:
                 //TODO call display Subscription history FN a Specific customer
                 break;
-            case 5:
+            case 4:
                /* if (GYM.listOfCoaches != null) {
                     System.out.println("Deserialized People:");
                     for (Coach coach : GYM.listOfCoaches) {
@@ -109,13 +94,13 @@ public class Admin extends Person implements Serializable {
                     }
                 }*/
                 break;
-            case 6:
+            case 5:
                 //TODO call FN that display all the users for a specific coach
                 break;
-            case 7:
+            case 6:
                 //TODO call FN that display gym income in a specific month
                 break;
-            case 8:
+            case 7:
                 //TODO call FN that display coaches sorted by most member with
                 break;
             default:
@@ -138,15 +123,252 @@ public class Admin extends Person implements Serializable {
     public static void addCoach(Coach coach) {
         Gym.listOfCoaches.add(coach);
     }
+    public static void editDeleteCoach (){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Search by:\n" +
+                "1. name \t" +
+                "2. phone number");
+        int choice = scanner.nextInt();
+
+        Scanner scanner1 = new Scanner(System.in);
+        System.out.println("Enter it's value: ");
+        String searchTerm = scanner1.nextLine();
+        boolean found = false;
+
+        switch (choice){
+            case 1:
+                for (Coach coach: Gym.listOfCoaches){
+                    if (coach.getName().equals(searchTerm)){
+                        found = true;
+
+                        coach.displayInfo();
+                        System.out.println("what do you want to do:\n" +
+                                "1. edit\t" +
+                                "2. delete");
+                        choice = scanner.nextInt();
+
+                        if (choice == 1){
+                            System.out.println("what value you need to edit\n" +
+                                    "1.mobile number\t" +
+                                    "2.password\t" +
+                                    "3.address");
+
+                            choice = scanner.nextInt();
+
+                            System.out.println("Enter the new value");
+                            String newValue = scanner1.nextLine();
+
+                            switch (choice){
+                                case 1:
+                                    coach.setPhoneNumber(newValue);
+                                    break;
+                                case 2:
+                                    coach.setPassword(newValue);
+                                    break;
+                                case 3:
+                                    coach.setAddress(newValue);
+                                    break;
+                            }
+                        } else if (choice == 2) {
+                            Gym.listOfCoaches.remove(coach);
+                        }
+                    }
+                    if (found)
+                        break;
+                }
+                break;
+            case 2:
+                for (Coach coach: Gym.listOfCoaches){
+                    if (coach.phoneNumber.equals(searchTerm)){
+                        found = true;
+
+                        coach.displayInfo();
+                        System.out.println("what do you want to do" +
+                                "1.edit\t" +
+                                "2.delete");
+                        choice = scanner.nextInt();
+
+                        if (choice == 1){
+                            System.out.println("what value you need to edit\n" +
+                                    "1.mobile number\t" +
+                                    "2.password\t" +
+                                    "3.address");
+
+                            choice = scanner.nextInt();
+
+                            System.out.println("Enter the new value");
+                            String newValue = scanner1.nextLine();
+
+                            switch (choice){
+                                case 1:
+                                    coach.setPhoneNumber(newValue);
+                                    break;
+                                case 2:
+                                    coach.setPassword(newValue);
+                                    break;
+                                case 3:
+                                    coach.setAddress(newValue);
+                                    break;
+                            }
+                        } else if (choice == 2) {
+                            Gym.listOfCoaches.remove(coach);
+                        }
+                    }
+                    if (found)
+                        break;
+                }
+                break;
+        }
+        if (!found)
+            System.out.println("There no coach with this number");
+    }
 
     public static void addSystemUser(SystemUser systemUser) {
         Gym.listOfSystemUsers.add(systemUser);
+    }
+    public static void editDeleteSystemUser (){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Search by:\n" +
+                "1. name \t" +
+                "2. phone number");
+        int choice = scanner.nextInt();
+
+        Scanner scanner1 = new Scanner(System.in);
+        System.out.println("Enter it's value: ");
+        String searchTerm = scanner1.nextLine();
+        boolean found = false;
+
+        switch (choice){
+            case 1:
+                for (SystemUser systemUser: Gym.listOfSystemUsers){
+                    if (systemUser.getName().equals(searchTerm)){
+                        found = true;
+
+                        systemUser.displayInfo();
+                        System.out.println("what do you want to do: \n" +
+                                "1. edit\t" +
+                                "2. delete");
+                        int editOrDelete =  new Scanner(System.in).nextInt();
+
+                        if (editOrDelete == 1){
+                            System.out.println("what value you need to edit\n" +
+                                    "1.mobile number\t" +
+                                    "2.password\t" +
+                                    "3.address");
+
+                            choice = scanner.nextInt();
+
+                            System.out.println("Enter the new value");
+                            String newValue = new Scanner(System.in).nextLine();
+
+                            switch (choice){
+                                case 1:
+                                    systemUser.setPhoneNumber(newValue);
+                                    break;
+                                case 2:
+                                    systemUser.setPassword(newValue);
+                                    break;
+                                case 3:
+                                    systemUser.setAddress(newValue);
+                                    break;
+                            }
+                        }
+                        else if (editOrDelete == 2){
+                            Gym.listOfSystemUsers.remove(systemUser);
+                            System.out.println("Deleted");
+                        }
+                    }
+                    if (found)
+                        break;
+                }
+                break;
+            case 2:
+                for (SystemUser systemUser: Gym.listOfSystemUsers){
+                    if (systemUser.phoneNumber.equals(searchTerm)){
+                        found = true;
+
+                        systemUser.displayInfo();
+                        System.out.println("what do you want to do" +
+                                "1.edit\t" +
+                                "2.delete");
+                        choice = scanner.nextInt();
+
+                        if (choice == 1){
+                            System.out.println("what value you need to edit\n" +
+                                    "1.mobile number\t" +
+                                    "2.password\t" +
+                                    "3.address");
+
+                            choice = scanner.nextInt();
+
+                            System.out.println("Enter the new value");
+                            String newValue = scanner1.nextLine();
+
+                            switch (choice){
+                                case 1:
+                                    systemUser.setPhoneNumber(newValue);
+                                    break;
+                                case 2:
+                                    systemUser.setPassword(newValue);
+                                    break;
+                                case 3:
+                                    systemUser.setAddress(newValue);
+                                    break;
+                            }
+                        } else if (choice == 2) {
+                            Gym.listOfSystemUsers.remove(systemUser);
+                        }
+                    }
+                    if (found)
+                        break;
+                }
+                break;
+        }
+        if (!found)
+            System.out.println("There no user with this number");
     }
 
     public static void addEquipment(Equipment equipment) {
         Gym.listOfEquipments.add(equipment);
     }
+    public static void editEquipment (){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter equipment code you want to edit its info: ");
+        String searchTerm = scanner.nextLine();
 
+        boolean found = false;
+
+        for (Equipment equipment: Gym.listOfEquipments){
+            if (equipment.equipmentCode.equals(searchTerm)) {
+                found = true;
+
+                equipment.displayInfo();
+                System.out.println("what value you need to edit\n" +
+                        "1.Equipment code\t" +
+                        "2.quantity");
+
+                int choice = scanner.nextInt();
+
+                System.out.println("Enter the new value");
+                Scanner scanner1 = new Scanner(System.in);
+
+                switch (choice){
+                    case 1:
+                        String newValue = scanner1.nextLine();
+                        equipment.setEquipmentCode(newValue);
+                        break;
+                    case 2:
+                        int newVal = scanner1.nextInt();
+                        equipment.setQuantity(newVal);
+                        break;
+                }
+            }
+            if (found)
+                break;
+        }
+        if (!found)
+            System.out.println("There no equipment with this code");
+    }
     public static class CoachSortByNumOfMembers implements Comparator<Coach> {
         @Override
         public int compare(Coach coach1, Coach coach2) {
