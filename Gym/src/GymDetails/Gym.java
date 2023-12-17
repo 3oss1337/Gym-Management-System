@@ -10,7 +10,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Gym {
+public class Gym implements Serializable{
     public String Name;
     private String Address;
     public String phoneNumber;
@@ -21,15 +21,16 @@ public class Gym {
     public static ArrayList<Subscription> listOfSubscriptions = new ArrayList<>();
 
 
-    public Gym(String name, String address, String phoneNumber, ArrayList<Equipment> listOfEquipments, ArrayList<Coach> listOfCoaches, ArrayList<Customer> listOfCustomers, ArrayList<Subscription> listOfSubscriptions) {
+    public Gym(String name, String address, String phoneNumber) {
         Name = name;
         Address = address;
         this.phoneNumber = phoneNumber;
-        Gym.listOfEquipments = listOfEquipments;
+        /*Gym.listOfEquipments = listOfEquipments;
         Gym.listOfCoaches = listOfCoaches;
         Gym.listOfCustomers = listOfCustomers;
-        Gym.listOfSubscriptions = listOfSubscriptions;
+        Gym.listOfSubscriptions = listOfSubscriptions;*/
     }
+
 
     public String getAddress() {
         return Address;
@@ -104,10 +105,15 @@ public class Gym {
         }
     }
 
-    public static void saveObject(Object obj, String filePath) {
+    public static void saveObject(Serializable obj, String filePath) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath, true))) {
-            oos.writeObject(obj);
-            System.out.println("Object saved to " + filePath);
+            // Check if the object is serializable before attempting to write
+            if (obj instanceof Serializable) {
+                oos.writeObject(obj);
+                System.out.println("Object saved to " + filePath);
+            } else {
+                System.out.println("Object is not serializable. Cannot be saved.");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,12 +121,16 @@ public class Gym {
 
     public static Object loadObject(String filePath) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
-            return ois.readObject();
+            try {
+                return ois.readObject();
+            } catch (EOFException e) {
+                System.out.println("End of file reached. No object to load.");
+                return null;
+            }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }
     }
-
 
 }

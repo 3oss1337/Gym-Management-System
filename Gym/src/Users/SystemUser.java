@@ -6,10 +6,11 @@ import Users.Customer.InBody;
 import Users.Customer.MemberShip;
 import Users.Customer.Subscription;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class SystemUser extends Person {
+public class SystemUser extends Person implements Serializable {
     private int workingHours;
     private int id;
 

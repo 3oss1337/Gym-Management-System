@@ -3,6 +3,7 @@ package Users;
 import GymDetails.Equipment;
 import GymDetails.Gym;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 import static Users.Coach.signUp;
 
-public class Admin extends Person {
+public class Admin extends Person implements Serializable {
 
     public Admin() {
 

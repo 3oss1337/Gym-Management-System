@@ -14,7 +14,18 @@ import java.lang.*;
 public class Main {
     public static void main(String[] args) {
 
+        /*if(gym.listOfCoaches ==null)
+        {
+            Coach coach = new Coach("Ahmed","roveto","Male","123square","01009079081","ae34@gmail.com",20,7);
+            gym.listOfCoaches.add(coach);
 
+        }*/
+        ArrayList<Coach> coaches = new ArrayList<>();
+        for(Coach coach : coaches)
+        {
+            Coach loadedCoach = coach;
+            Gym.listOfCoaches.add(loadedCoach);
+        }
         char c;
         do {
             Gym.mainMenu();
@@ -24,6 +35,20 @@ public class Main {
             c = scanner.nextLine().charAt(0);
 
         } while (c != 'N' && c != 'n');
+
+        coaches.clear();
+        coaches.addAll(Gym.listOfCoaches);
+        Gym.saveObject(coaches,"Coach.txt");
+
+       coaches = (ArrayList<Coach>) Gym.loadObject("Coach.txt");
+
+
+        if(coaches !=null)
+        {
+            for (Coach coach1 : coaches) {
+                System.out.println(coach1);
+            }
+        }
 
 
 

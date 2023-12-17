@@ -4,12 +4,13 @@ import GymDetails.Gym;
 import Users.Customer.Customer;
 import Users.Customer.InBody;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class Coach extends Person {
+public class Coach extends Person implements Serializable{
 
     public int id;
     private int workingHours;   // per Day can't be more than 10H
@@ -193,6 +194,20 @@ public class Coach extends Person {
         System.out.println("Coach created successfully✅");
         return person;
     }
+
+    public String toString() {
+        return "Coach{" +
+                "name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", gender='" + gender + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", workingHours=" + workingHours +
+                '}';
+    }
+    private static final long serialVersionUID = 1L;
 
 
 }

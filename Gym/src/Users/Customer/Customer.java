@@ -5,6 +5,7 @@ import GymDetails.Gym;
 import Users.Coach;
 import Users.Person;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 import static GymDetails.Gym.listOfCoaches;
 import static GymDetails.Gym.listOfEquipments;
 
-public class Customer extends Person {
+public class Customer extends Person implements Serializable {
     private int id;
     public InBody inBody;
     public static List<Subscription> subscriptions;
