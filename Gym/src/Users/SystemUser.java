@@ -34,7 +34,7 @@ public class SystemUser extends Person implements Serializable {
     }
 
     @Override
-    public void login() {
+    public Person login() {
 
         do {
             Scanner scanner = new Scanner(System.in);
@@ -48,7 +48,7 @@ public class SystemUser extends Person implements Serializable {
                 if (systemUser.getName().equals(userName) && systemUser.getPassword().equals(password)) {
                     System.out.println("hello " + userName);
                     flag = true;
-                    break;
+                    return systemUser;
                 } else {
                     flag = false;
                 }
@@ -58,6 +58,7 @@ public class SystemUser extends Person implements Serializable {
             else
                 System.out.println("Username or password is wrong ❌");
         } while (true);
+        return null;
     }
 
     @Override
@@ -87,7 +88,7 @@ public class SystemUser extends Person implements Serializable {
                 //TODO call display Subscription history FN a Specific customer
                 break;
             case 5:
-                SystemUser.renew();
+                //SystemUser.renew();
             default:
                 System.out.println("please enter a valid choice");
         }
@@ -172,7 +173,7 @@ public class SystemUser extends Person implements Serializable {
         System.out.println("User deleted succesfully✅");
     }
 
-    public static void renew() {
+    /*public static void renew() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter mobile number for the member you want to edit his info: ");
         String searchTerm = scanner.nextLine();
@@ -197,12 +198,12 @@ public class SystemUser extends Person implements Serializable {
 
                 LocalDate startDate = LocalDate.of(startYear, startMonth, startDay);
                 LocalDate endDate = startDate.plusMonths(numberOfMonthsRegistered);
-                Subscription subscription = new Subscription(customer.getId(), 5, memberShip, startDate, endDate);
+                Subscription subscription = new Subscription(customer.getId(), "Ahmed", memberShip, startDate, endDate);
 
                 customer.setSubscription(subscription);
             }
         }
-    }
+    }*/
 
     public static Person signUp() {
         Scanner scanner = new Scanner(System.in);

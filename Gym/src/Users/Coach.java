@@ -134,7 +134,7 @@ public class Coach extends Person implements Serializable{
     }
 
     @Override
-    public void login() {
+    public Person login() {
 
         do {
             Scanner scanner = new Scanner(System.in);
@@ -147,7 +147,7 @@ public class Coach extends Person implements Serializable{
                 if (coach.getName().equals(userName) && coach.getPassword().equals(password)) {
                     System.out.println("hello " + userName);
                     flag = true;
-                    break;
+                    return coach;
                 } else {
                     flag = false;
                 }
@@ -157,6 +157,7 @@ public class Coach extends Person implements Serializable{
             else
                 System.out.println("Username or password is wrong ❌");
         } while (true);
+        return null;
     }
 
     @Override

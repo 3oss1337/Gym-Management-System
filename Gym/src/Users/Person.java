@@ -13,6 +13,8 @@ public abstract class Person implements Serializable {
     public String email;
     public int age;
 
+    private static final long serialVersionUID = 2048791087601462733L;
+
     public Person() {
     }
 
@@ -122,7 +124,7 @@ public abstract class Person implements Serializable {
 
     public abstract void displayInfo();
 
-    public abstract void login();
+    public abstract Person login();
 
     public abstract void menu();
 }

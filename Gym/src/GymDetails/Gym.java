@@ -92,7 +92,6 @@ public class Gym implements Serializable {
                 break;
             case 3:
                 Customer customer = new Customer();
-                customer.login();
                 customer.menu();
                 break;
             case 4:

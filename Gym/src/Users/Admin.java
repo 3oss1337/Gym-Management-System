@@ -20,7 +20,7 @@ public class Admin extends Person implements Serializable {
     }
 
     @Override
-    public void login() {
+    public Person login() {
         do {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter your UserName:");
@@ -29,7 +29,7 @@ public class Admin extends Person implements Serializable {
             String password = scanner.nextLine();
 
             if (userName.equals("admin") && password.equals("admin"))
-                break;
+                return null;
             else
                 System.out.println("Username or password is wrong ❌");
         } while (true);

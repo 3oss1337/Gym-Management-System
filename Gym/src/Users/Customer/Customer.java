@@ -91,12 +91,23 @@ public class Customer extends Person implements Serializable {
         }
     }
 
-    public void displayAssignedCoachInfo(Customer customer) {
-        for (Coach coach : listOfCoaches) {
-            if (customer.subscription.getCoachId() == coach.id) {
-                System.out.println(coach.id);
-
+    public static void displayAssignedCoachForCustomer(String customerName) {
+        boolean found = false;
+        for (Customer customer : Gym.listOfCustomers) {
+            if (customer.getName().equalsIgnoreCase(customerName)) {
+                for (Coach coach : Gym.listOfCoaches) {
+                    if (customer.getSubscription().getCoachName().equals(coach.getId())) {
+                        System.out.println("Assigned Coach for " + customer.getName() + ":");
+                        coach.displayInfo();
+                        found = true;
+                        break;
+                    }
+                }
+                break;
             }
+        }
+        if (!found) {
+            System.out.println("No coach found");
         }
     }
 
@@ -111,7 +122,7 @@ public class Customer extends Person implements Serializable {
     }
 
     public void chooseYourDreamBody() {
-        inBody.knowNeeded(this);
+
     }
 
     @Override
@@ -124,7 +135,7 @@ public class Customer extends Person implements Serializable {
     }
 
     @Override
-    public void login() {
+    public Person login() {
 
         do {
             Scanner scanner = new Scanner(System.in);
@@ -139,7 +150,7 @@ public class Customer extends Person implements Serializable {
                 if (customer.getName().equalsIgnoreCase(userName) && customer.getPassword().equals(password)) {
                     System.out.println("hello " + userName);
                     flag = true;
-                    break;
+                    return customer;
                 } else {
                     flag = false;
                 }
@@ -149,10 +160,12 @@ public class Customer extends Person implements Serializable {
             else
                 System.out.println("Username or password is wrong ❌");
         } while (true);
+        return null;
     }
 
     @Override
     public void menu() {
+        Customer customer = (Customer) login();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("1. To get your coach info\n" +
@@ -173,7 +186,7 @@ public class Customer extends Person implements Serializable {
                 Gym.displayEquipments();
                 break;
             case 3:
-                subscription.getMembership().display();
+                customer.subscription.getMembership().display();
                 break;
             case 4:
                 //TODO make a method that searches inBody history list by date
@@ -181,7 +194,7 @@ public class Customer extends Person implements Serializable {
                 //inBody.getInBodyDetails(date);
                 break;
             case 5:
-                chooseYourDreamBody();
+                inBody.knowNeeded(customer);
                 break;
             default:
                 System.out.println("please enter a valid choice");
@@ -241,7 +254,7 @@ public class Customer extends Person implements Serializable {
 
         LocalDate startDate = LocalDate.of(startYear, startMonth, startDay);
         LocalDate endDate = startDate.plusMonths(numberOfMonthsRegistered);
-        Subscription subscription = new Subscription(2, 5, memberShip, startDate, endDate);
+        Subscription subscription = new Subscription(2, "Ahmed", memberShip, startDate, endDate);
         subscriptionsList.add(subscription);
 
         Person person = new Customer(name, password, gender, address, phoneNum, email, age, inBody, subscription);

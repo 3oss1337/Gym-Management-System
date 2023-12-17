@@ -7,25 +7,18 @@ import Users.Customer.MemberShip;
 
 public class Subscription implements Serializable {
     private int customerId;
-    private int coachId;
+    private String coachName;
     private MemberShip membership;
     private LocalDate startDate;
     private LocalDate endDate;
+    private static final long serialVersionUID = -502369392812154238L;
 
-    public int getCustomerId() {
-        return customerId;
+    public String getCoachName() {
+        return coachName;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public int getCoachId() {
-        return coachId;
-    }
-
-    public void setCoachId(int coachId) {
-        this.coachId = coachId;
+    public void setCoachName(String coachName) {
+        this.coachName = coachName;
     }
 
     public MemberShip getMembership() {
@@ -52,24 +45,18 @@ public class Subscription implements Serializable {
         this.endDate = endDate;
     }
 
-    public Subscription(int customerId, int coachId, MemberShip membership, LocalDate startDate, LocalDate endDate) {
-        this.customerId = customerId;
-        this.coachId = coachId;
+    public Subscription(int customerId, String coachName, MemberShip membership, LocalDate startDate, LocalDate endDate) {
+        this.coachName = coachName;
         this.membership = membership;
         this.startDate = LocalDate.now();
         this.endDate = getStartDate().plusMonths(membership.getNumberOfMonthsRegistered());
     }
 
-    public Subscription(int customerId, int coachId, MemberShip membership) {
-        this.customerId = customerId;
-        this.coachId = coachId;
-        this.membership = membership;
-    }
 
     public String toString() {
         return "Ur Subscription {" +
                 "Ur Id='" + customerId + '\'' +
-                ", Ur coach Id'" + coachId + '\'' +
+                ", Ur coach name'" + coachName + '\'' +
                 ", " + membership + '\'' +
                 ", Subscription starts at'" + startDate + '\'' +
                 ", Subscription ends at='" + endDate + '\'' +
