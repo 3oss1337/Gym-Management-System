@@ -29,16 +29,17 @@ public class SystemUser extends Person implements Serializable {
 
     @Override
     public void login() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your UserName:");
-        String userName = scanner.nextLine();
-        System.out.println("Enter your password:");
-        String password = scanner.nextLine();
 
-        /*do {
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter your UserName:");
+            String userName = scanner.nextLine();
+            System.out.println("Enter your password:");
+            String password = scanner.nextLine();
+
             boolean flag = false;
-            for (int i = 2; i < Gym.listOfSystemUsers.size(); i += 2) {
-                if (Gym.listOfSystemUsers.contains(userName) && Gym.listOfSystemUsers.get(i + 1).equals(password)) {
+            for (SystemUser systemUser : Gym.listOfSystemUsers) {
+                if (systemUser.getName().equals(userName) && systemUser.getPassword().equals(password) ) {
                     System.out.println("hello " + userName);
                     flag = true;
                     break;
@@ -50,7 +51,7 @@ public class SystemUser extends Person implements Serializable {
                 break;
             else
                 System.out.println("Username or password is wrong ❌");
-        } while (true);*/
+        } while (true);
     }
 
     @Override

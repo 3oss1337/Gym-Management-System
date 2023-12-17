@@ -114,7 +114,7 @@ public class Gym implements Serializable{
         }
     }
 
-    public static ArrayList<?> loadFeomFile(String filePath) {
+    public static ArrayList<?> loadFromFile(String filePath) {
         File file = new File(filePath);
         ArrayList<?> arrayList = null;
         if (file.exists()) {

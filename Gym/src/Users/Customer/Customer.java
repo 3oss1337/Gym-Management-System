@@ -84,10 +84,8 @@ public class Customer extends Person implements Serializable {
     }
 
     public void displayGymEquipment() {
-
         for (Equipment equipment : listOfEquipments) {
             equipment.displayDetails();
-
         }
     }
 
@@ -110,16 +108,18 @@ public class Customer extends Person implements Serializable {
 
     @Override
     public void login() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your UserName:");
-        String userName = scanner.nextLine();
-        System.out.println("Enter your password:");
-        String password = scanner.nextLine();
 
-        /*do {
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter your UserName:");
+            String userName = scanner.nextLine();
+            System.out.println("Enter your password:");
+            String password = scanner.nextLine();
+
             boolean flag = false;
-            for (int i = 2; i < Gym.listOfCustomers.size(); i += 2) {
-                if (Gym.listOfCustomers.contains(userName) && Gym.listOfCustomers.get(i + 1).equals(password)) {
+
+            for (Customer customer : Gym.listOfCustomers) {
+                if (customer.getName().equalsIgnoreCase(userName) && customer.getPassword().equals(password)) {
                     System.out.println("hello " + userName);
                     flag = true;
                     break;
@@ -131,7 +131,7 @@ public class Customer extends Person implements Serializable {
                 break;
             else
                 System.out.println("Username or password is wrong ❌");
-        } while (true);*/
+        } while (true);
     }
 
     @Override
@@ -233,13 +233,15 @@ public class Customer extends Person implements Serializable {
     @Override
     public String toString() {
         return "Customer{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", gender='" + gender + '\'' +
-                ", lastInBodyDate=" + lastInBodyDate +
+                "name='" + getName() + '\'' +
+                ", password='" + getPassword() + '\'' +
+                ", gender='" + getGender() + '\'' +
+                ", address='" + getAddress() + '\'' +
+                ", phoneNumber='" + getPhoneNumber() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", age=" + getAge() +
+                ", inBody=" + inBody +
+                ", subscription=" + subscription +
                 '}';
     }
 

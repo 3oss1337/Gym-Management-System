@@ -16,6 +16,7 @@ public class InBody implements Serializable {
     protected double bodyFatMass;       //in kg
     protected double bodyWater;         //in kg
     protected double fatNeeded;
+    private static final long serialVersionUID = -6085866881041085537L;
 
     public double getFatNeeded() {
         return fatNeeded;
@@ -141,6 +142,16 @@ public class InBody implements Serializable {
             LocalDate nextAllowedInBodyDate = customer.getLastInBodyDate().plusDays(30);
             return LocalDate.now().isAfter(nextAllowedInBodyDate);
         }
+    }
+
+    public String toString() {
+        return "InBody{" +
+                "dateOfInBody=" + dateOfInBody +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", bodyFatMass=" + bodyFatMass +
+                ", bodyWater=" + bodyWater +
+                '}';
     }
 }
 

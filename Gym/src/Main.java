@@ -8,10 +8,10 @@ import java.lang.*;
 
 public class Main {
     public static void main(String[] args) {
-        Gym.listOfCoaches.addAll((ArrayList<Coach>) Gym.loadFeomFile("Coach.txt"));
-        Gym.listOfCustomers.addAll((ArrayList<Customer>) Gym.loadFeomFile("Customer.txt"));
-        Gym.listOfSystemUsers.addAll((ArrayList<SystemUser>) Gym.loadFeomFile("Receptionist.txt"));
-        Gym.listOfEquipments.addAll((ArrayList<Equipment>) Gym.loadFeomFile("Equipment.txt"));
+        Gym.listOfCoaches.addAll((ArrayList<Coach>) Gym.loadFromFile("Coach.txt"));
+        Gym.listOfCustomers.addAll((ArrayList<Customer>) Gym.loadFromFile("Customer.txt"));
+        Gym.listOfSystemUsers.addAll((ArrayList<SystemUser>) Gym.loadFromFile("Receptionist.txt"));
+        Gym.listOfEquipments.addAll((ArrayList<Equipment>) Gym.loadFromFile("Equipment.txt"));
 
         Gym.displayCoaches(Gym.listOfCoaches);
         Gym.displayCustomers(Gym.listOfCustomers);

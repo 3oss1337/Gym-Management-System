@@ -16,7 +16,7 @@ public class Coach extends Person implements Serializable{
     private int workingHours;   // per Day can't be more than 10H
     public static int coachId = 500;
     private List<Customer> customers;
-
+    private static final long serialVersionUID = 1L;
     public Coach() {
     }
 
@@ -135,16 +135,16 @@ public class Coach extends Person implements Serializable{
 
     @Override
     public void login() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your UserName:");
-        String userName = scanner.nextLine();
-        System.out.println("Enter your password:");
-        String password = scanner.nextLine();
 
-        /*do {
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter your UserName:");
+            String userName = scanner.nextLine();
+            System.out.println("Enter your password:");
+            String password = scanner.nextLine();
             boolean flag = false;
-            for (int i = 2; i < Gym.listOfCoaches.size(); i += 2) {
-                if (Gym.listOfCoaches.contains(userName) && Gym.listOfCoaches.get(i + 1).equals(password)) {
+            for (Coach coach : Gym.listOfCoaches) {
+                if (coach.getName().equals(userName) && coach.getPassword().equals(password)) {
                     System.out.println("hello " + userName);
                     flag = true;
                     break;
@@ -156,7 +156,7 @@ public class Coach extends Person implements Serializable{
                 break;
             else
                 System.out.println("Username or password is wrong ❌");
-        } while (true);*/
+        } while (true);
     }
 
     @Override
@@ -207,8 +207,5 @@ public class Coach extends Person implements Serializable{
                 ", workingHours=" + workingHours +
                 '}';
     }
-    private static final long serialVersionUID = 1L;
-
-
 }
 
