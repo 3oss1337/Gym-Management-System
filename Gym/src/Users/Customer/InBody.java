@@ -1,9 +1,10 @@
 package Users.Customer;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class InBody {
+public class InBody implements Serializable {
     protected LocalDate dateOfInBody;
     protected String desire;
 

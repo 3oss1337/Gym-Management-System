@@ -105,31 +105,64 @@ public class Gym implements Serializable{
         }
     }
 
-    public static void saveObject(Serializable obj, String filePath) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath, true))) {
-            // Check if the object is serializable before attempting to write
-            if (obj instanceof Serializable) {
-                oos.writeObject(obj);
-                System.out.println("Object saved to " + filePath);
-            } else {
-                System.out.println("Object is not serializable. Cannot be saved.");
-            }
+    public static void saveObject(ArrayList<?> arrayList, String filePath) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            oos.writeObject(arrayList);
+            System.out.println("Objects written to file successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static Object loadObject(String filePath) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
-            try {
-                return ois.readObject();
-            } catch (EOFException e) {
-                System.out.println("End of file reached. No object to load.");
-                return null;
+    public static ArrayList<?> loadObject(String filePath) {
+        File file = new File(filePath);
+        ArrayList<?> arrayList = null;
+        if (file.exists()) {
+            // If the file exists, read the stored objects from the file
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+                ArrayList<?> readPersonList = (ArrayList<?>) ois.readObject();
+
+
+                /*System.out.println("Already Saved Persons:");
+                for (Customer customer : readPersonList) {
+                    System.out.println(customer);
+                }*/
+
+                System.out.println("Objects read from file successfully.");
+
+                return readPersonList;
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
+        }
+        return null;
+    }
+
+    public static void displayCoaches (ArrayList<Coach> arrayList){
+        System.out.println("Already Saved Coaches:");
+                for (Coach coach : arrayList) {
+                    System.out.println(coach);
+                }
+    }
+
+    public static void displayCustomers (ArrayList<Customer> arrayList){
+        System.out.println("Already Saved Customers:");
+        for (Customer customer : arrayList) {
+            System.out.println(customer);
+        }
+    }
+
+    public static void displayEquipments (ArrayList<Equipment> arrayList){
+        System.out.println("Already Saved Equipments:");
+        for (Equipment equipment : arrayList) {
+            System.out.println(equipment);
+        }
+    }
+
+    public static void displaySystemUsers (ArrayList<SystemUser> arrayList){
+        System.out.println("Already Saved Receptionists:");
+        for (SystemUser systemUser : arrayList) {
+            System.out.println(systemUser);
         }
     }
 

@@ -1,10 +1,11 @@
 package Users.Customer;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import Users.Customer.MemberShip;
 
-public class Subscription {
+public class Subscription implements Serializable {
     private int customerId;
     private int coachId;
     private MemberShip membership;

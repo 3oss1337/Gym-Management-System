@@ -1,6 +1,8 @@
 package Users.Customer;
 
-public class MemberShip {
+import java.io.Serializable;
+
+public class MemberShip implements Serializable {
     private int numberOfMonthsRegistered;
     private int numberOfDaysRegistered;
     private double price = 0;

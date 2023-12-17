@@ -13,19 +13,16 @@ import java.lang.*;
 
 public class Main {
     public static void main(String[] args) {
+        ArrayList<Coach> arrayCoaches = (ArrayList<Coach>) Gym.loadObject("Coach.txt");
+        ArrayList<Customer> arrayCustomers = (ArrayList<Customer>) Gym.loadObject("Customer.txt");
+        ArrayList<SystemUser> arraySystemUsers  = (ArrayList<SystemUser>) Gym.loadObject("Receptionist.txt");
+        ArrayList<Equipment> arrayEquipments = (ArrayList<Equipment>) Gym.loadObject("Equipment.txt");
 
-        /*if(gym.listOfCoaches ==null)
-        {
-            Coach coach = new Coach("Ahmed","roveto","Male","123square","01009079081","ae34@gmail.com",20,7);
-            gym.listOfCoaches.add(coach);
+        Gym.displayCoaches(arrayCoaches);
+        Gym.displayCustomers(arrayCustomers);
+        Gym.displaySystemUsers(arraySystemUsers);
+        Gym.displayEquipments(arrayEquipments);
 
-        }*/
-        ArrayList<Coach> coaches = new ArrayList<>();
-        for(Coach coach : coaches)
-        {
-            Coach loadedCoach = coach;
-            Gym.listOfCoaches.add(loadedCoach);
-        }
         char c;
         do {
             Gym.mainMenu();
@@ -36,21 +33,18 @@ public class Main {
 
         } while (c != 'N' && c != 'n');
 
-        coaches.clear();
-        coaches.addAll(Gym.listOfCoaches);
-        Gym.saveObject(coaches,"Coach.txt");
-
-       coaches = (ArrayList<Coach>) Gym.loadObject("Coach.txt");
+        arrayCoaches.addAll(Gym.listOfCoaches);
+        Gym.saveObject(arrayCoaches, "Coach.txt");
 
 
-        if(coaches !=null)
-        {
-            for (Coach coach1 : coaches) {
-                System.out.println(coach1);
-            }
-        }
+        arrayCustomers.addAll(Gym.listOfCustomers);
+        Gym.saveObject(arrayCustomers, "Customer.txt");
 
+        arraySystemUsers.addAll(Gym.listOfSystemUsers);
+        Gym.saveObject(arraySystemUsers, "Receptionist.txt");
 
+        arrayEquipments.addAll(Gym.listOfEquipments);
+        Gym.saveObject(arrayEquipments, "Equipment.txt");
 
 /*
         MemberShip m1 = new MemberShip(3,6);

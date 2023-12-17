@@ -19,7 +19,6 @@ public class Admin extends Person implements Serializable {
 
     @Override
     public void displayInfo() {
-
     }
 
     @Override
