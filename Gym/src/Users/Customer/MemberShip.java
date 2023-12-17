@@ -69,7 +69,7 @@ public class MemberShip implements Serializable {
     }
 
     public void display() {
-        System.out.println("Your membership's number of days is : " + getNumberOfDaysRegistered());
+        System.out.println("Your membership's number of days per week is : " + getNumberOfDaysRegistered());
         System.out.println("Your membership's number of plans is : " + getNumberOfMonthsRegistered());
         System.out.println((int) (getPrice() - getPrice() % 100));
     }
@@ -77,6 +77,6 @@ public class MemberShip implements Serializable {
     public String toString() {
         return "Ur Member Ship Plan {" + "Number Of Days '"
                 + numberOfDaysRegistered + '\'' + ",Number Of Months '" + numberOfMonthsRegistered + '\''
-                + ", Price '" + calculateTotalPrice(numberOfMonthsRegistered , calcMonthPrice(numberOfDaysRegistered)) + '\'' + '}';
+                + ", Price '" + calculateTotalPrice(numberOfMonthsRegistered, calcMonthPrice(numberOfDaysRegistered)) + '\'' + '}';
     }
 }

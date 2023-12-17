@@ -10,7 +10,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Gym implements Serializable{
+public class Gym implements Serializable {
     public String Name;
     private String Address;
     public String phoneNumber;
@@ -138,28 +138,27 @@ public class Gym implements Serializable{
         return null;
     }
 
-    public static void displayCoaches (ArrayList<Coach> arrayList){
+    public static void displayCoaches(ArrayList<Coach> arrayList) {
         System.out.println("Already Saved Coaches:");
-                for (Coach coach : arrayList) {
-                    System.out.println(coach);
-                }
+        for (Coach coach : arrayList) {
+            System.out.println(coach);
+        }
     }
 
-    public static void displayCustomers (ArrayList<Customer> arrayList){
+    public static void displayCustomers(ArrayList<Customer> arrayList) {
         System.out.println("Already Saved Customers:");
         for (Customer customer : arrayList) {
             System.out.println(customer);
         }
     }
 
-    public static void displayEquipments (ArrayList<Equipment> arrayList){
-        System.out.println("Already Saved Equipments:");
-        for (Equipment equipment : arrayList) {
+    public static void displayEquipments() {
+        for (Equipment equipment : Gym.listOfEquipments) {
             System.out.println(equipment);
         }
     }
 
-    public static void displaySystemUsers (ArrayList<SystemUser> arrayList){
+    public static void displaySystemUsers(ArrayList<SystemUser> arrayList) {
         System.out.println("Already Saved Receptionists:");
         for (SystemUser systemUser : arrayList) {
             System.out.println(systemUser);

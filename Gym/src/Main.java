@@ -17,7 +17,7 @@ public class Main {
         Gym.displayCustomers(Gym.listOfCustomers);
 
         Gym.displaySystemUsers(Gym.listOfSystemUsers);
-        Gym.displayEquipments(Gym.listOfEquipments);
+        Gym.displayEquipments();
 
 
         char c;

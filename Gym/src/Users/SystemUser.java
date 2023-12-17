@@ -2,7 +2,6 @@ package Users;
 
 import GymDetails.Gym;
 import Users.Customer.Customer;
-import Users.Customer.InBody;
 import Users.Customer.MemberShip;
 import Users.Customer.Subscription;
 
@@ -46,7 +45,7 @@ public class SystemUser extends Person implements Serializable {
 
             boolean flag = false;
             for (SystemUser systemUser : Gym.listOfSystemUsers) {
-                if (systemUser.getName().equals(userName) && systemUser.getPassword().equals(password) ) {
+                if (systemUser.getName().equals(userName) && systemUser.getPassword().equals(password)) {
                     System.out.println("hello " + userName);
                     flag = true;
                     break;
@@ -66,7 +65,8 @@ public class SystemUser extends Person implements Serializable {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("1. Add user \n2. edit user \n3. delete user \n" +
-                "4. Get subscription history of a customer\n");
+                "4. Get subscription history of a customer\n" +
+                "5. Renew a customer subscription");
 
         System.out.println("Choose your choice");
         int choice = scanner.nextInt();
@@ -86,6 +86,8 @@ public class SystemUser extends Person implements Serializable {
                 //(Same FN of the admin)
                 //TODO call display Subscription history FN a Specific customer
                 break;
+            case 5:
+                SystemUser.renew();
             default:
                 System.out.println("please enter a valid choice");
         }
@@ -94,6 +96,7 @@ public class SystemUser extends Person implements Serializable {
     public static void addCustomer(Customer customer) {
         Gym.listOfCustomers.add(customer);
     }
+
     public static void editCustomer() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter mobile number for the member you want to edit his info: ");
@@ -101,7 +104,7 @@ public class SystemUser extends Person implements Serializable {
 
         boolean found = false;
 
-        for (Customer customer: Gym.listOfCustomers){
+        for (Customer customer : Gym.listOfCustomers) {
             if (customer.getPhoneNumber().equals(searchTerm)) {
                 found = true;
 
@@ -117,7 +120,7 @@ public class SystemUser extends Person implements Serializable {
                 System.out.println("Enter the new value");
                 String newValue = scanner1.nextLine();
 
-                switch (choice){
+                switch (choice) {
                     case 1:
                         customer.setPhoneNumber(newValue);
                         break;
@@ -136,19 +139,20 @@ public class SystemUser extends Person implements Serializable {
         if (!found)
             System.out.println("There no user with this number");
     }
-    public static void deleteCustomer(){
+
+    public static void deleteCustomer() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Search by: " +
                 "1. name" +
                 "2. phone number");
         int choice = scanner.nextInt();
 
-        switch (choice){
+        switch (choice) {
             case 1:
                 System.out.print("Enter user name: ");
                 String name = scanner.nextLine();
-                for (Customer customer: Gym.listOfCustomers){
-                    if (customer.getName().equals(name)){
+                for (Customer customer : Gym.listOfCustomers) {
+                    if (customer.getName().equals(name)) {
                         Gym.listOfCustomers.remove(customer);
                         break;
                     }
@@ -157,8 +161,8 @@ public class SystemUser extends Person implements Serializable {
             case 2:
                 System.out.print("Enter user name: ");
                 String phoneNum = scanner.nextLine();
-                for (Customer customer: Gym.listOfCustomers){
-                    if (customer.getName().equals(phoneNum)){
+                for (Customer customer : Gym.listOfCustomers) {
+                    if (customer.getName().equals(phoneNum)) {
                         Gym.listOfCustomers.remove(customer);
                     }
                 }
@@ -166,6 +170,38 @@ public class SystemUser extends Person implements Serializable {
         }
 
         System.out.println("User deleted succesfully✅");
+    }
+
+    public static void renew() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter mobile number for the member you want to edit his info: ");
+        String searchTerm = scanner.nextLine();
+
+        boolean found = false;
+        for (Customer customer : Gym.listOfCustomers) {
+            if (customer.getPhoneNumber().equals(searchTerm)) {
+                found = true;
+                Scanner scanner1 = new Scanner(System.in);
+                System.out.println("Enter number of months you want to register");
+                int numberOfMonthsRegistered = scanner1.nextInt();
+                System.out.println("Enter your number of days you want to register per week (3 / 6)");
+                int numberOfDaysRegistered = scanner1.nextInt();
+                MemberShip memberShip = new MemberShip(numberOfMonthsRegistered, numberOfDaysRegistered);
+
+                System.out.println("Enter start year");
+                int startYear = scanner1.nextInt();
+                System.out.println("Enter start month");
+                int startMonth = scanner1.nextInt();
+                System.out.println("Enter start day");
+                int startDay = scanner1.nextInt();
+
+                LocalDate startDate = LocalDate.of(startYear, startMonth, startDay);
+                LocalDate endDate = startDate.plusMonths(numberOfMonthsRegistered);
+                Subscription subscription = new Subscription(customer.getId(), 5, memberShip, startDate, endDate);
+
+                customer.setSubscription(subscription);
+            }
+        }
     }
 
     public static Person signUp() {
@@ -193,7 +229,7 @@ public class SystemUser extends Person implements Serializable {
 
         System.out.println("System user added successfully✅");
 
-        Person person = new SystemUser(name, password, gender, address, phoneNum, email,age, wHours);
+        Person person = new SystemUser(name, password, gender, address, phoneNum, email, age, wHours);
         return person;
     }
 

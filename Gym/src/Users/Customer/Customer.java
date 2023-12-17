@@ -1,6 +1,5 @@
 package Users.Customer;
 
-import GymDetails.Equipment;
 import GymDetails.Gym;
 import Users.Coach;
 import Users.Person;
@@ -12,16 +11,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import static GymDetails.Gym.listOfCoaches;
-import static GymDetails.Gym.listOfEquipments;
 
 public class Customer extends Person implements Serializable {
     private int id;
     public InBody inBody;
-    public static List<Subscription> subscriptions;
+
+    public static List<Subscription> subscriptionsList;
     public Subscription subscription;
     private List<InBody> inBodies;
     LocalDate lastInBodyDate;
     public static int customerId = 0;
+    private static final long serialVersionUID = 9030088271766756025L;
 
     public static void incrementCustomerId() {
         customerId++;
@@ -34,6 +34,7 @@ public class Customer extends Person implements Serializable {
         super(name, password, gender, address, phoneNumber, email, age);
         this.inBody = inBody;
         this.subscription = subscription;
+        this.subscriptionsList = new ArrayList<>();
     }
 
     public List<InBody> getInBodies() {
@@ -42,6 +43,14 @@ public class Customer extends Person implements Serializable {
 
     public void setInBodies(List<InBody> inBodies) {
         this.inBodies = inBodies;
+    }
+
+    public static List<Subscription> getSubscriptionsList() {
+        return subscriptionsList;
+    }
+
+    public static void setSubscriptionsList(List<Subscription> subscriptionsList) {
+        Customer.subscriptionsList = subscriptionsList;
     }
 
     public int getId() {
@@ -58,6 +67,14 @@ public class Customer extends Person implements Serializable {
 
     public LocalDate getLastInBodyDate() {
         return lastInBodyDate;
+    }
+
+    public Subscription getSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(Subscription subscription) {
+        this.subscription = subscription;
     }
 
     public void addToInBodyHistory(InBody Inbody) {
@@ -83,11 +100,11 @@ public class Customer extends Person implements Serializable {
         }
     }
 
-    public void displayGymEquipment() {
+    /*public void displayGymEquipment() {
         for (Equipment equipment : listOfEquipments) {
             equipment.displayDetails();
         }
-    }
+    }*/
 
     public void displayMemberShipDetails(Customer customer) {
         customer.subscription.getMembership().display();
@@ -153,10 +170,10 @@ public class Customer extends Person implements Serializable {
                 //displayAssignedCoachInfo();
                 break;
             case 2:
-                displayGymEquipment();
+                Gym.displayEquipments();
                 break;
             case 3:
-                //displayMemberShipDetails();
+                subscription.getMembership().display();
                 break;
             case 4:
                 //TODO make a method that searches inBody history list by date
@@ -225,6 +242,7 @@ public class Customer extends Person implements Serializable {
         LocalDate startDate = LocalDate.of(startYear, startMonth, startDay);
         LocalDate endDate = startDate.plusMonths(numberOfMonthsRegistered);
         Subscription subscription = new Subscription(2, 5, memberShip, startDate, endDate);
+        subscriptionsList.add(subscription);
 
         Person person = new Customer(name, password, gender, address, phoneNum, email, age, inBody, subscription);
         return person;
