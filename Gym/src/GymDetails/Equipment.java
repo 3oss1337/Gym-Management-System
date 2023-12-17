@@ -3,10 +3,11 @@ package GymDetails;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 
-public class Equipment {
+public class Equipment implements Serializable {
     public String name;
     public String equipmentCode;
     public int quantity;
@@ -76,5 +77,12 @@ public class Equipment {
         System.out.println("Equipment Name: " + name);
         System.out.println("Equipment Code: " + equipmentCode);
         System.out.println("Quantity Available: " + quantity);
+    }
+    public String toString() {
+        return "Equipment{" +
+                "name='" + name + '\'' +
+                ", equipmentCode='" + equipmentCode + '\'' +
+                ", quantity=" + quantity +
+                '}';
     }
 }

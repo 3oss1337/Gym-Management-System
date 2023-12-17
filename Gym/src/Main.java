@@ -1,27 +1,24 @@
 import Users.*;
 import GymDetails.*;
 import Users.Customer.Customer;
-import Users.Customer.InBody;
-import Users.Customer.MemberShip;
-import Users.Customer.Subscription;
 
-import java.time.LocalDate;
 import java.util.*;
-import java.io.*;
 import java.lang.*;
 
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Coach> arrayCoaches = (ArrayList<Coach>) Gym.loadObject("Coach.txt");
-        ArrayList<Customer> arrayCustomers = (ArrayList<Customer>) Gym.loadObject("Customer.txt");
-        ArrayList<SystemUser> arraySystemUsers  = (ArrayList<SystemUser>) Gym.loadObject("Receptionist.txt");
-        ArrayList<Equipment> arrayEquipments = (ArrayList<Equipment>) Gym.loadObject("Equipment.txt");
+        Gym.listOfCoaches.addAll((ArrayList<Coach>) Gym.loadFeomFile("Coach.txt"));
+        Gym.listOfCustomers.addAll((ArrayList<Customer>) Gym.loadFeomFile("Customer.txt"));
+        Gym.listOfSystemUsers.addAll((ArrayList<SystemUser>) Gym.loadFeomFile("Receptionist.txt"));
+        Gym.listOfEquipments.addAll((ArrayList<Equipment>) Gym.loadFeomFile("Equipment.txt"));
 
-        Gym.displayCoaches(arrayCoaches);
-        Gym.displayCustomers(arrayCustomers);
-        Gym.displaySystemUsers(arraySystemUsers);
-        Gym.displayEquipments(arrayEquipments);
+        Gym.displayCoaches(Gym.listOfCoaches);
+        Gym.displayCustomers(Gym.listOfCustomers);
+
+        Gym.displaySystemUsers(Gym.listOfSystemUsers);
+        Gym.displayEquipments(Gym.listOfEquipments);
+
 
         char c;
         do {
@@ -33,18 +30,10 @@ public class Main {
 
         } while (c != 'N' && c != 'n');
 
-        arrayCoaches.addAll(Gym.listOfCoaches);
-        Gym.saveObject(arrayCoaches, "Coach.txt");
-
-
-        arrayCustomers.addAll(Gym.listOfCustomers);
-        Gym.saveObject(arrayCustomers, "Customer.txt");
-
-        arraySystemUsers.addAll(Gym.listOfSystemUsers);
-        Gym.saveObject(arraySystemUsers, "Receptionist.txt");
-
-        arrayEquipments.addAll(Gym.listOfEquipments);
-        Gym.saveObject(arrayEquipments, "Equipment.txt");
+        Gym.saveToFile(Gym.listOfCoaches, "Coach.txt");
+        Gym.saveToFile(Gym.listOfCustomers, "Customer.txt");
+        Gym.saveToFile(Gym.listOfSystemUsers, "Receptionist.txt");
+        Gym.saveToFile(Gym.listOfEquipments, "Equipment.txt");
 
 /*
         MemberShip m1 = new MemberShip(3,6);

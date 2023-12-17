@@ -105,7 +105,7 @@ public class Gym implements Serializable{
         }
     }
 
-    public static void saveObject(ArrayList<?> arrayList, String filePath) {
+    public static void saveToFile(ArrayList<?> arrayList, String filePath) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(arrayList);
             System.out.println("Objects written to file successfully.");
@@ -114,7 +114,7 @@ public class Gym implements Serializable{
         }
     }
 
-    public static ArrayList<?> loadObject(String filePath) {
+    public static ArrayList<?> loadFeomFile(String filePath) {
         File file = new File(filePath);
         ArrayList<?> arrayList = null;
         if (file.exists()) {

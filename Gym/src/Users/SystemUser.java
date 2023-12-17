@@ -115,4 +115,17 @@ public class SystemUser extends Person implements Serializable {
         Person person = new SystemUser(name, password, email, gender, address, phoneNum, age, wHours);
         return person;
     }
+
+    public String toString() {
+        return "System User{" +
+                "name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", gender='" + gender + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", workingHours=" + workingHours +
+                '}';
+    }
 }
