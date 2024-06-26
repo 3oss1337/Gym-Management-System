@@ -71,7 +71,7 @@ public class MemberShip implements Serializable {
     public void display() {
         System.out.println("Your membership's number of days per week is : " + getNumberOfDaysRegistered());
         System.out.println("Your membership's number of plans is : " + getNumberOfMonthsRegistered());
-        System.out.println((int) (getPrice() - getPrice() % 100));
+        //System.out.println((int) (getPrice() - getPrice() % 100));
     }
 
     public String toString() {

@@ -73,34 +73,40 @@ public class Gym implements Serializable {
     }
 
     public static void mainMenu() {
+        int choice;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1. Log in as ADMIN\n" + "2. Log in as COACH\n" + "3. Log in as TRAINEE\n" + "4. Log in as receptionist");
+        do {
 
-        System.out.println("Choose your choice");
-        int choice = scanner.nextInt();
+            System.out.println("1. Log in as ADMIN\n" + "2. Log in as COACH\n" + "3. Log in as TRAINEE\n" + "4. Log in as receptionist\n5. Exit");
 
-        switch (choice) {
-            case 1:
-                Admin admin = new Admin();
-                admin.login();
-                admin.menu();
-                break;
-            case 2:
-                Coach coach = new Coach();
-                coach.menu();
-                break;
-            case 3:
-                Customer customer = new Customer();
-                customer.menu();
-                break;
-            case 4:
-                SystemUser systemUser = new SystemUser();
-                systemUser.login();
-                systemUser.menu();
-                break;
-            default:
-                System.out.println("please enter a valid choice");
-        }
+            System.out.println("Choose your choice");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    Admin admin = new Admin();
+                    admin.login();
+                    admin.menu();
+                    break;
+                case 2:
+                    Coach coach = new Coach();
+                    coach.menu();
+                    break;
+                case 3:
+                    Customer customer = new Customer();
+                    customer.menu();
+                    break;
+                case 4:
+                    SystemUser systemUser = new SystemUser();
+                    systemUser.login();
+                    systemUser.menu();
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("please enter a valid choice");
+            }
+        }while (choice != 5);
     }
 
     public static void saveToFile(ArrayList<?> arrayList, String filePath) {
@@ -109,6 +115,17 @@ public class Gym implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    static public boolean goBack() {
+        int goBack;
+        boolean back = false;
+
+        System.out.println("press 0 to back / 1 to log out");
+        goBack = new Scanner(System.in).nextInt();
+        if (goBack == 0)
+            back = true;
+        return back;
     }
 
     public static ArrayList<?> loadFromFile(String filePath) {

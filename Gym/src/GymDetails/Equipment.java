@@ -95,10 +95,12 @@ public class Equipment implements Serializable {
         System.out.println("Equipment Code: " + equipmentCode);
         System.out.println("Quantity Available: " + quantity);
     }
-    public void displayInfo() {
+    public void displayInfo(String type) {
         System.out.println("Name:" + this.name);
-        System.out.println("Code:" + this.equipmentCode);
-        System.out.println("Quantity:" + this.quantity);
+        if (type.equals("receptionist") || type.equals("admin"))
+            System.out.println("Code:" + this.equipmentCode);
+
+        System.out.println("Quantity:" + this.quantity + '\n' );
     }
 
     public String toString() {

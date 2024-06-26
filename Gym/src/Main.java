@@ -19,15 +19,9 @@ public class Main {
         Gym.displaySystemUsers(Gym.listOfSystemUsers);
         Gym.displayEquipments();
 
-        char c;
-        do {
+
             Gym.mainMenu();
 
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Press y to continue n to exit");
-            c = scanner.nextLine().charAt(0);
-
-        } while (c != 'N' && c != 'n');
 
         Gym.saveToFile(Gym.listOfCoaches, "Coach.txt");
         Gym.saveToFile(Gym.listOfCustomers, "Customer.txt");

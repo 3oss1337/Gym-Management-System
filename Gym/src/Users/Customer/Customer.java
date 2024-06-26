@@ -18,7 +18,7 @@ public class Customer extends Person implements Serializable {
 
     public static List<Subscription> subscriptionsList;
     public Subscription subscription;
-    private List<InBody> inBodies;
+    public List<InBody> inBodies;
     LocalDate lastInBodyDate;
     public static int customerId = 0;
     private static final long serialVersionUID = 9030088271766756025L;
@@ -35,6 +35,8 @@ public class Customer extends Person implements Serializable {
         this.inBody = inBody;
         this.subscription = subscription;
         this.subscriptionsList = new ArrayList<>();
+        this.inBodies = new ArrayList<>();
+        this.inBodies.add(inBody);
     }
 
     public List<InBody> getInBodies() {
@@ -73,13 +75,7 @@ public class Customer extends Person implements Serializable {
         return subscription;
     }
 
-    public void setSubscription(Subscription subscription) {
-        this.subscription = subscription;
-    }
 
-    public void addToInBodyHistory(InBody Inbody) {
-        inBodies.add(Inbody);
-    }
 
     public void performInBody(InBody inBody) {
         if (inBody.canPerformInBody(this)) {
@@ -120,7 +116,7 @@ public class Customer extends Person implements Serializable {
         System.out.println("Phone number:" + this.phoneNumber);
         System.out.println("Gender:" + this.gender);
         System.out.println("Mail:" + this.email);
-        System.out.println("ID:" + this.id);
+        System.out.println("ID:" + this.id + '\n');
     }
 
     @Override
@@ -154,46 +150,83 @@ public class Customer extends Person implements Serializable {
 
     @Override
     public void menu() {
+
         Customer customer = (Customer) login();
-        Scanner scanner = new Scanner(System.in);
+        boolean back = false;
 
-        System.out.println("1. To get your coach info\n" +
-                "2. Display for all the Gym Equipment\n" +
-                "3. Display my membership’s plan details\n" +
-                "4. Display the in-body information at a specific date\n" +
-                "5. Display how many kilos I need to reduce according to my inBody");
+        do{
+            Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Choose your choice");
-        int choice = scanner.nextInt();
+            System.out.println("1. To get your coach info\n" +
+                    "2. Display for all the Gym Equipment\n" +
+                    "3. Display my membership’s plan details\n" +
+                    "4. Display the in-body information at a specific date\n" +
+                    "5. Add new in-body\n"+
+                    "6. Display how many kilos I need to reduce according to my inBody\n" +
+                    "7. Log out");
 
+            System.out.println("Choose your choice");
+            int choice = scanner.nextInt();
 
-        switch (choice) {
-            case 1:
-                displayAssignedCoachForCustomer(customer.getName());
-                break;
-            case 2:
-                Gym.displayEquipments();
-                break;
-            case 3:
-                customer.subscription.getMembership().display();
-                break;
-            case 4:
-                System.out.println("Enter in-body date");
-                System.out.println("Year:");
-                int year = scanner.nextInt();
-                System.out.println("Month:");
-                int month = scanner.nextInt();
-                System.out.println("Day:");
-                int day = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    displayAssignedCoachForCustomer(customer.getName());
+                    back = Gym.goBack();
+                    break;
+                case 2:
+                    Gym.displayEquipments();
+                    break;
+                case 3:
+                    customer.subscription.getMembership().display();
+                    back = Gym.goBack();
+                    break;
+                case 4:
+                    System.out.println("Enter in-body date");
+                    System.out.println("Year:");
+                    int year = scanner.nextInt();
+                    System.out.println("Month:");
+                    int month = scanner.nextInt();
+                    System.out.println("Day:");
+                    int day = scanner.nextInt();
 
-                customer.inBody.getInBodyDetails(LocalDate.of(year, month, day), customer);
-                break;
-            case 5:
-                customer.inBody.knowNeeded(customer);
-                break;
-            default:
-                System.out.println("please enter a valid choice");
-        }
+                    customer.inBody.getInBodyDetails(LocalDate.of(year, month, day), customer);
+                    back = Gym.goBack();
+                    break;
+                case 5:
+                    System.out.println("Enter in-body date");
+                    System.out.println("Year:");
+                    year = scanner.nextInt();
+                    System.out.println("Month:");
+                    month = scanner.nextInt();
+                    System.out.println("Day:");
+                    day = scanner.nextInt();
+                    System.out.println("Enter your desire");
+                    String desire = scanner.nextLine();
+                    System.out.println("Enter your height");
+                    Double height = scanner.nextDouble();
+                    System.out.println("Enter your weight");
+                    Double weight = scanner.nextDouble();
+                    System.out.println("Enter your bodyFatMass");
+                    Double bodyFatMass = scanner.nextDouble();
+                    System.out.println("Enter your bodyWater");
+                    Double bodyWater = scanner.nextDouble();
+                    InBody newInBody = new InBody(LocalDate.of(year, month, day), desire, height, weight, bodyFatMass, bodyWater);
+                    this.inBodies.add(newInBody);
+
+                    this.inBody = newInBody;
+                    break;
+                case 6:
+                    customer.inBody.knowNeeded(customer);
+                    back = Gym.goBack();
+                    break;
+                case 7:
+                    System.out.println("Good Bye " + customer.getName() + " 👋");
+                    break;
+                default:
+                    System.out.println("please enter a valid choice");
+            }
+        }while(back);
+
     }
 
     public static Person signUp() {
@@ -276,5 +309,5 @@ public class Customer extends Person implements Serializable {
                 '}';
     }
 
-    //TODO display the in body information at a specific date
+    //TODO add new inbody
 }

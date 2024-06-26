@@ -1,20 +1,23 @@
 package Users;
 
+import GymDetails.Equipment;
 import GymDetails.Gym;
 import Users.Customer.Customer;
 import Users.Customer.InBody;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.*;
 
-public class Coach extends Person implements Serializable{
+public class Coach extends Person implements Serializable {
 
     public int id;
     private int workingHours;   // per Day can't be more than 10H
     public static int coachId = 500;
     private List<Customer> customers;
     private static final long serialVersionUID = 1L;
+
     public Coach() {
     }
 
@@ -74,12 +77,17 @@ public class Coach extends Person implements Serializable{
     }
 
     public void getTraineesByGender(String gender) {
-        System.out.println("The " + gender + " Customers are : ");
+        boolean found = false;
+        System.out.println("The " + gender + " customers are : ");
         for (Customer customer : Gym.listOfCustomers) {
             if (customer.gender.equalsIgnoreCase(gender)) {
+                found = true;
                 customer.displayInfo();
             }
         }
+
+        if (!found)
+            System.out.println("No " + gender + " customers for you");
     }
 
     public void callInBodyHistory(String coachName) {
@@ -88,17 +96,6 @@ public class Coach extends Person implements Serializable{
                 System.out.println("Trainee's in-body history");
                 System.out.println(customer.inBody);
             }
-        /*for (InBody InBodies : customer.getInBodies()) {
-            System.out.println("Date : " + InBodies.getDateOfInBody());
-            System.out.println("Height : " + Math.round(InBodies.getHeight() * 10.0) / 10.0); //rounded the value to one decimal place
-            System.out.println("Weight : " + InBodies.getWeight());
-            System.out.println("Body fat mass : " + InBodies.getBodyFatMass());
-            System.out.println("Body water : " + InBodies.getBodyWater());
-            System.out.println("The protein needed : " + InBodies.getProteinNeeded());
-            System.out.println("The carb needed : " + InBodies.getCarbNeeded());
-            System.out.println("The fat needed : " + InBodies.getFatNeeded());
-            System.out.print("\n");
-        }*/
         }
     }
 
@@ -112,7 +109,8 @@ public class Coach extends Person implements Serializable{
             System.out.println("1. Show a list of my customers\n" +
                     "2. Get the in-body history of a specific customer\n" +
                     "3. Get all the details of a specific customer by his name\n" +
-                    "4. Show a list of all my female/male customers\n ");
+                    "4. Show a list of all my female/male customers\n" +
+                    "5. Log out ");
 
             System.out.println("Choose your choice");
             int choice = scanner.nextInt();
@@ -137,12 +135,15 @@ public class Coach extends Person implements Serializable{
                     String gender = new Scanner(System.in).nextLine();
                     getTraineesByGender(gender);
                     break;
+                case 5:
+                    System.out.println("Good Bye " + coach.getName() + " 👋");
+                    break;
                 default:
                     System.out.println("please enter a valid choice");
             }
 
 
-        }while (goBack());
+        } while (Gym.goBack());
 
     }
 
@@ -178,7 +179,7 @@ public class Coach extends Person implements Serializable{
         System.out.println("Name:" + this.name);
         System.out.println("Phone number:" + this.phoneNumber);
         System.out.println("Gender:" + this.gender);
-        System.out.println("Mail:" + this.email);
+        System.out.println("Mail:" + this.email+ '\n');
 
     }
 
@@ -209,17 +210,6 @@ public class Coach extends Person implements Serializable{
         return person;
     }
 
-    public boolean goBack(){
-        int goBack;
-        boolean back = false;
-
-        System.out.println("press 0 to back / 1 to end");
-        goBack = new Scanner(System.in).nextInt();
-        if (goBack == 0)
-            back = true;
-        return back;
-    }
-
     public String toString() {
         return "Coach{" +
                 "name='" + name + '\'' +
@@ -248,9 +238,9 @@ class CoachSortByNumOfMembers implements Comparator<Coach> {
     public static void sortCoachesByNumOfMembers(List<Coach> coaches) {
         Collections.sort(coaches, new CoachSortByNumOfMembers());
 
-            System.out.println("Coaches sorted by the number of members:");
-            for (Coach coach : coaches) {
-                System.out.println("Coach: " + coach.getName() + ", Number of Customers: " + coach.getAllTrainees().size());
+        System.out.println("Coaches sorted by the number of members:");
+        for (Coach coach : coaches) {
+            System.out.println("Coach: " + coach.getName() + ", Number of Customers: " + coach.getAllTrainees().size());
         }
     }
 }

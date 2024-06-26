@@ -40,70 +40,79 @@ public class Admin extends Person implements Serializable {
 
     @Override
     public void menu() {
+
+        int choice;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello Boss");
+        do {
+            System.out.println("Hello Boss");
 
-        System.out.println("1. Add \n2. Search \n" +
-                "3. Display all the customers that subscribed to the gym in a given month/day\n" +
-                "5. Display all the customers of a specific coach\n" +
-                ". Display the coaches sorted in terms of the most assigned number of customers to the coaches");
+            System.out.println("1. Add \n2. Search \n" +
+                    "3. Display all the customers that subscribed to the gym in a given month/day\n" +
+                    "5. Display all the customers of a specific coach\n" +
+                    "6. Display the coaches sorted in terms of the most assigned number of customers to the coaches\n" +
+                    "7. Log out");
 
-        System.out.println("Choose your choice");
-        int choice = scanner.nextInt();
+            System.out.println("Choose your choice");
+            choice = scanner.nextInt();
 
-        switch (choice) {
-            case 1:
-                Person person;
-                switch (typesAdminCanEdit()) {
-                    case 1:
-                        person = Coach.signUp();
-                        Admin.addCoach((Coach) person);
-                        break;
-                    case 2:
-                        person = SystemUser.signUp();
-                        Admin.addSystemUser((SystemUser) person);
-                        break;
-                    case 3:
-                        Admin.addEquipment(Equipment.addEquipmentInfo());
-                        break;
-                    default:
-                        System.out.println("please enter a valid choice");
-                }
-                break;
-            case 2:
-                switch (typesAdminCanEdit()) {
-                    case 1:
-                        Admin.editDeleteCoach();
-                        break;
-                    case 2:
-                        Admin.editDeleteSystemUser();
-                        break;
-                    case 3:
-                        Admin.editEquipment();
-                        break;
-                }
-                break;
-            case 3:
-                System.out.println("Enter month: ");
-                int number = new Scanner(System.in).nextInt();
-                Month month =LocalDate.of(2023, number, 16).getMonth() ;
-                for (Customer customer : Gym.listOfCustomers) {
-                    if (customer.getSubscription().getStartDate().getMonth().compareTo(month) == 0) {
-                        customer.displayInfo();
+            switch (choice) {
+                case 1:
+                    Person person;
+                    switch (typesAdminCanEdit()) {
+                        case 1:
+                            person = Coach.signUp();
+                            Admin.addCoach((Coach) person);
+                            break;
+                        case 2:
+                            person = SystemUser.signUp();
+                            Admin.addSystemUser((SystemUser) person);
+                            break;
+                        case 3:
+                            Admin.addEquipment(Equipment.addEquipmentInfo());
+                            break;
+                        default:
+                            System.out.println("please enter a valid choice");
                     }
-                }
-                break;
-            case 5:
-                System.out.println("Enter coach name: ");
-                String coachName = new Scanner(System.in).nextLine();
-                displayAllUsersForASpecific(coachName);
-                break;
-            case 6:
-                Users.CoachSortByNumOfMembers.sortCoachesByNumOfMembers(Gym.listOfCoaches);
-                break;
-            default:
-                System.out.println("please enter a valid choice");
-        }
+                    break;
+                case 2:
+                    switch (typesAdminCanEdit()) {
+                        case 1:
+                            Admin.editDeleteCoach();
+                            break;
+                        case 2:
+                            Admin.editDeleteSystemUser();
+                            break;
+                        case 3:
+                            Admin.editEquipment();
+                            break;
+                    }
+                    break;
+                case 3:
+                    System.out.println("Enter month: ");
+                    int number = new Scanner(System.in).nextInt();
+                    Month month =LocalDate.of(2023, number, 16).getMonth() ;
+                    for (Customer customer : Gym.listOfCustomers) {
+                        if (customer.getSubscription().getStartDate().getMonth().compareTo(month) == 0) {
+                            customer.displayInfo();
+                        }
+                    }
+                    break;
+                case 5:
+                    System.out.println("Enter coach name: ");
+                    String coachName = new Scanner(System.in).nextLine();
+                    displayAllUsersForASpecific(coachName);
+                    break;
+                case 6:
+                    Users.CoachSortByNumOfMembers.sortCoachesByNumOfMembers(Gym.listOfCoaches);
+                    break;
+                case 7:
+                    System.out.println("Good Bye boss 👋");
+                    break;
+                default:
+                    System.out.println("please enter a valid choice");
+            }
+
+        } while (choice != 7);
     }
 
     private void displayAllUsersForASpecific(String targetCoach) {
@@ -350,8 +359,8 @@ public class Admin extends Person implements Serializable {
             if (equipment.equipmentCode.equals(searchTerm)) {
                 found = true;
 
-                equipment.displayInfo();
-                equipment.displayInfo();
+                equipment.displayInfo("admin");
+                equipment.displayInfo("admin");
                 System.out.println("what do you want to do: \n" +
                         "1. edit\t" +
                         "2. delete");

@@ -1,5 +1,8 @@
 package Users.Customer;
 
+import GymDetails.Gym;
+import Users.Coach;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
@@ -118,7 +121,7 @@ public class InBody implements Serializable {
             System.out.println("You're within the ”normal BMI range”. Keeping your weight within this range lowers your risk of getting obesity-related deceases.");
         }
 
-        System.out.println("You need to eat meals that contain" + proteinNeeded + "gram protein per day");
+        System.out.println("You need to eat meals that contain " + proteinNeeded + "gram protein per day");
         System.out.println("You need to eat meals that contain " + fatNeeded + " gram fats per day");
         System.out.println("You need to eat meals that contain " + carbNeeded + " gram carb per day");
 
@@ -129,7 +132,6 @@ public class InBody implements Serializable {
 
         //to display the actual value when needed
         height = height * 100;
-
     }
 
     public boolean canPerformInBody(Customer customer) {
@@ -145,16 +147,21 @@ public class InBody implements Serializable {
     }
 
     public void getInBodyDetails(LocalDate of, Customer customer) {
-        if (customer.inBody.getDateOfInBody().equals(of)){
-            System.out.println(
-                "dateOfInBody=" + customer.inBody.getDateOfInBody() +
-                        ", height=" + customer.inBody.height +
-                        ", weight=" + customer.inBody.weight +
-                        ", bodyFatMass=" + customer.inBody.bodyFatMass +
-                        ", bodyWater=" + customer.inBody.bodyWater +
-                        '}');
+        boolean found = false;
+        for(InBody inbody : customer.inBodies) {
+            if (customer.inBody.getDateOfInBody().equals(of)) {
+               found = true;
+                System.out.println(
+                        "dateOfInBody=" + customer.inBody.getDateOfInBody() +
+                                ", height=" + customer.inBody.height +
+                                ", weight=" + customer.inBody.weight +
+                                ", bodyFatMass=" + customer.inBody.bodyFatMass +
+                                ", bodyWater=" + customer.inBody.bodyWater +
+                                '}');
+                break;
+            }
         }
-        else
+        if (!found)
             System.out.println("There is no in-body in that day");
     }
     public String toString() {
