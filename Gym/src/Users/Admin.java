@@ -3,6 +3,7 @@ package Users;
 import GymDetails.Equipment;
 import GymDetails.Gym;
 import Users.Customer.Customer;
+import Users.Customer.Subscription;
 
 import java.io.Serializable;
 import java.lang.management.MonitorInfo;
@@ -50,7 +51,8 @@ public class Admin extends Person implements Serializable {
                     "3. Display all the customers that subscribed to the gym in a given month/day\n" +
                     "5. Display all the customers of a specific coach\n" +
                     "6. Display the coaches sorted in terms of the most assigned number of customers to the coaches\n" +
-                    "7. Log out");
+                    "7. Display Subscription History\n" +
+                    "8. Log out");
 
             System.out.println("Choose your choice");
             choice = scanner.nextInt();
@@ -90,7 +92,7 @@ public class Admin extends Person implements Serializable {
                 case 3:
                     System.out.println("Enter month: ");
                     int number = new Scanner(System.in).nextInt();
-                    Month month =LocalDate.of(2023, number, 16).getMonth() ;
+                    Month month =Month.of(number);
                     for (Customer customer : Gym.listOfCustomers) {
                         if (customer.getSubscription().getStartDate().getMonth().compareTo(month) == 0) {
                             customer.displayInfo();
@@ -106,13 +108,18 @@ public class Admin extends Person implements Serializable {
                     Users.CoachSortByNumOfMembers.sortCoachesByNumOfMembers(Gym.listOfCoaches);
                     break;
                 case 7:
+                    for(Subscription sub : Gym.listOfSubscriptions)
+                        System.out.println(sub);
+                    Gym.goBack();
+                    break;
+                case 8:
                     System.out.println("Good Bye boss 👋");
                     break;
                 default:
                     System.out.println("please enter a valid choice");
             }
 
-        } while (choice != 7);
+        } while (choice != 8);
     }
 
     private void displayAllUsersForASpecific(String targetCoach) {
@@ -359,7 +366,6 @@ public class Admin extends Person implements Serializable {
             if (equipment.equipmentCode.equals(searchTerm)) {
                 found = true;
 
-                equipment.displayInfo("admin");
                 equipment.displayInfo("admin");
                 System.out.println("what do you want to do: \n" +
                         "1. edit\t" +

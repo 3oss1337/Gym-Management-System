@@ -72,8 +72,7 @@ public class SystemUser extends Person implements Serializable {
 
             System.out.println("1. Add user \n2. edit user \n3. delete user \n" +
                     "4. Get subscription history of a customer\n" +
-                    "5. Renew a customer subscription\n" +
-                    "6. Log out");
+                    "5. Log out");
 
             System.out.println("Choose your choice");
             choice = scanner.nextInt();
@@ -94,14 +93,12 @@ public class SystemUser extends Person implements Serializable {
                     //TODO call display Subscription history FN a Specific customer
                     break;
                 case 5:
-                    //SystemUser.renew();
-                case 6:
                     System.out.println("Good Bye 👋");
                     break;
                 default:
                     System.out.println("please enter a valid choice");
             }
-        }while (choice != 6);
+        }while (choice != 5);
     }
 
     public static void addCustomer(Customer customer) {

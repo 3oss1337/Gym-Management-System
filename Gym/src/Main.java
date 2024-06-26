@@ -1,6 +1,7 @@
 import Users.*;
 import GymDetails.*;
 import Users.Customer.Customer;
+import Users.Customer.Subscription;
 
 import java.util.*;
 import java.lang.*;
@@ -12,6 +13,7 @@ public class Main {
         Gym.listOfCustomers.addAll((ArrayList<Customer>) Gym.loadFromFile("Customer.txt"));
         Gym.listOfSystemUsers.addAll((ArrayList<SystemUser>) Gym.loadFromFile("Receptionist.txt"));
         Gym.listOfEquipments.addAll((ArrayList<Equipment>) Gym.loadFromFile("Equipment.txt"));
+        Gym.listOfSubscriptions.addAll((ArrayList<Subscription>) Gym.loadFromFile("Subscriptions.txt"));
 
         Gym.displayCoaches(Gym.listOfCoaches);
         Gym.displayCustomers(Gym.listOfCustomers);
@@ -27,6 +29,7 @@ public class Main {
         Gym.saveToFile(Gym.listOfCustomers, "Customer.txt");
         Gym.saveToFile(Gym.listOfSystemUsers, "Receptionist.txt");
         Gym.saveToFile(Gym.listOfEquipments, "Equipment.txt");
+        Gym.saveToFile(Gym.listOfSubscriptions, "Subscriptions.txt");
 
     }
 }

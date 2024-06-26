@@ -48,7 +48,7 @@ public class Subscription implements Serializable {
     public Subscription(int customerId, String coachName, MemberShip membership, LocalDate startDate, LocalDate endDate) {
         this.coachName = coachName;
         this.membership = membership;
-        this.startDate = LocalDate.now();
+        this.startDate = startDate;
         this.endDate = getStartDate().plusMonths(membership.getNumberOfMonthsRegistered());
     }
 
